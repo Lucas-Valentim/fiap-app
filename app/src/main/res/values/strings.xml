@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">FiapApp</string>
+    <string name="cadastro_aut">Cadastro Automóvel</string>
+    <string name="cadastro">Cadastro</string>
+    <string name="consulta_aut">Consulta Automóvel</string>
+    <string name="consulta">Consulta</string>
+    <string name="alteracao_aut">Alteração Automóvel</string>
+    <string name="alteracao">Alteração</string>
+    <string name="filtro">Filtro</string>
+    <string name="salvar">Salvar</string>
+    <string name="limpar">Limpar</string>
+    <string name="marca">Marca:</string>
+    <string name="modelo">Modelo:</string>
+    <string name="ano">Ano:</string>
+    <string name="km">Kilometragem:</string>
+    <string name="cor">Cor:</string>
+    <string name="filial">Filial:</string>
+    <string name="valor">Valor:</string>
+    <string name="placa">Placa:</string>
+    <string name="detalhes">Detalhes:</string>
+    <string name="de">De:</string>
+    <string name="ate">Até:</string>
+    <string name="nome_sistema">Nome do Sistema</string>
+
+    <string-array name="marcas">
+        <item>Audi</item>
+        <item>BMW</item>
+        <item>Chevrolet</item>
+        <item>Citroen</item>
+        <item>Fiat</item>
+        <item>Ford</item>
+        <item>Honda</item>
+        <item>Hyundai</item>
+        <item>Jeep</item>
+        <item>Mercedes-Benz</item>
+        <item>Mitsubishi</item>
+        <item>Nissan</item>
+        <item>Peugeot</item>
+        <item>Renaut</item>
+        <item>Toyota</item>
+        <item>Volkswagen</item>
+    </string-array>
+</resources>
