@@ -10,6 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FiapApp">
         <activity
+            android:name=".Lista"
+            android:exported="true" />
+        <activity
+            android:name=".Registro"
+            android:exported="true" />
+        <activity
+            android:name=".Consulta"
+            android:exported="true" />
+        <activity
+            android:name=".Menu"
+            android:exported="true" />
+        <activity
             android:name=".Cadastro"
             android:exported="true" />
         <activity

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "133775896565",
+    "project_id": "fiap-mobile",
+    "storage_bucket": "fiap-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133775896565:android:d9e3f2da720ab65b6b3abc",
+        "android_client_info": {
+          "package_name": "fiap.com.br.fiapapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133775896565-odco3c43e4frm5hree3qk8gncu1703rp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9DVNR-NngjmGEO3u8H5EW7uf4364uPSk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133775896565-odco3c43e4frm5hree3qk8gncu1703rp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

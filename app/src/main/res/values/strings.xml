@@ -21,6 +21,14 @@
     <string name="de">De:</string>
     <string name="ate">Até:</string>
     <string name="nome_sistema">Nome do Sistema</string>
+    <string name="nome_empresa">Confiance Veículos</string>
+    <string name="usuario_nao_cadastrado">Não possui uma conta? Crie aqui!</string>
+    <string name="fazer_login">Entrar</string>
+    <string name="email">E-mail</string>
+    <string name="senha">Senha</string>
+    <string name="nome_usuario">Nome Completo</string>
+    <string name="cadastrar_usuario">Cadastrar</string>
+    <string name="firestore_marca_veiculo">marca_veiculo</string>
 
     <string-array name="marcas">
         <item>Audi</item>
