@@ -36,12 +36,12 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar4" />
 
     <TextView
-        android:id="@+id/txvConsulta"
+        android:id="@+id/txvFiltro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:layout_marginBottom="48dp"
-        android:text="@string/consulta"
+        android:text="@string/filtro"
         android:textColor="@color/defaultRed"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar5"
@@ -239,19 +239,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txvFilial" />
 
-    <Button
-        android:id="@+id/btnFiltrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="158dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="158dp"
-        android:backgroundTint="#F44336"
-        android:text="Aplicar Filtro"
-        app:iconTint="#F44336"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cmbFilial" />
+        <Button
+            android:id="@+id/btnFiltrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#F44336"
+            android:text="@string/aplicarFiltro"
+            app:iconTint="#F44336"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cmbFilial" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -3,6 +3,7 @@ package fiap.com.br.fiapapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 
 class Menu : AppCompatActivity() {
@@ -20,7 +21,8 @@ class Menu : AppCompatActivity() {
         }
 
         btnConsulta.setOnClickListener {
-            val intent = Intent(this, Consulta::class.java)
+            Log.i("Menu > Consulta", "Registrou a função para abrir a consulta")
+            var intent = Intent(this, Lista::class.java)
             startActivity(intent)
         }
 

@@ -29,6 +29,11 @@
     <string name="nome_usuario">Nome Completo</string>
     <string name="cadastrar_usuario">Cadastrar</string>
     <string name="firestore_marca_veiculo">marca_veiculo</string>
+    <string name="consultar">Consultar</string>
+    <string name="aplicarFiltro">Aplicar Filtro</string>
+    <string name="acao">Ação:</string>
+    <string name="usuario">user_fiap@fiap.com.br</string>
+    <string name="senhausuario">fiap123</string>
 
     <string-array name="marcas">
         <item>Audi</item>

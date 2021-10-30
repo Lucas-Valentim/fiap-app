@@ -1,4 +1,4 @@
-package fiap.com.br.fiapapp.data
+package fiap.com.br.fiapapp.data.model
 
 data class Empresa (
 
@@ -7,5 +7,4 @@ data class Empresa (
      var estado: String = "",
      var cidade: String = "",
      var razao_social: String = ""
-
 )
