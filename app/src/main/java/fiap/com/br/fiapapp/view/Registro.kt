@@ -1,4 +1,4 @@
-package fiap.com.br.fiapapp
+package fiap.com.br.fiapapp.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +13,7 @@ import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
+import fiap.com.br.fiapapp.R
 
 class Registro : AppCompatActivity() {
 

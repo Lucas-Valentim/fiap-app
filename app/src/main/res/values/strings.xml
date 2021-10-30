@@ -29,6 +29,7 @@
     <string name="nome_usuario">Nome Completo</string>
     <string name="cadastrar_usuario">Cadastrar</string>
     <string name="firestore_marca_veiculo">marca_veiculo</string>
+    <string name="consulta_veiculo">Consulta de Automóveis</string>
 
     <string-array name="marcas">
         <item>Audi</item>

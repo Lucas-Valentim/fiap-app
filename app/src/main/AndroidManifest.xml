@@ -10,22 +10,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FiapApp">
         <activity
-            android:name=".Lista"
+            android:name=".view.ListaVeiculo"
+            android:exported="false" />
+        <activity
+            android:name=".view.Lista"
             android:exported="true" />
         <activity
-            android:name=".Registro"
+            android:name=".view.Registro"
             android:exported="true" />
         <activity
-            android:name=".Consulta"
+            android:name=".view.Consulta"
             android:exported="true" />
         <activity
-            android:name=".Menu"
+            android:name=".view.Menu"
             android:exported="true" />
         <activity
-            android:name=".Cadastro"
+            android:name=".view.Cadastro"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

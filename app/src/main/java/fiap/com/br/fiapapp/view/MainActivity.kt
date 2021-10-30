@@ -1,4 +1,4 @@
-package fiap.com.br.fiapapp
+package fiap.com.br.fiapapp.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import fiap.com.br.fiapapp.R
 
 
 class MainActivity : AppCompatActivity(){

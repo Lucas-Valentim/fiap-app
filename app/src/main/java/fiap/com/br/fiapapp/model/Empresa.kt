@@ -1,4 +1,4 @@
-package fiap.com.br.fiapapp.data
+package fiap.com.br.fiapapp.model
 
 data class Empresa (
 
