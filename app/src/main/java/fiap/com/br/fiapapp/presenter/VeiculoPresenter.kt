@@ -4,10 +4,7 @@ import android.os.Binder
 import android.util.Log
 import android.view.View
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.*
 import fiap.com.br.fiapapp.model.*
 import kotlin.collections.ArrayList
 
@@ -27,22 +24,37 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
         this.view = view
     }
 
-    override fun obterListaVeiculos() {
+    override fun obterListaVeiculos(veiculo: Veiculo): Query {
 
-        db = FirebaseFirestore.getInstance().collection("veiculo")
-        db.get().addOnCompleteListener(OnCompleteListener {
+        db = FirebaseFirestore.getInstance().collection("veiculo");
+        var qry = db.whereGreaterThan("cod_veiculo", -1);
 
-            for (dataObject in it.getResult()!!.documents){
-                var veiculo = dataObject.toObject(Veiculo::class.java)!!
-                arrayList.add(veiculo)
-                Log.i("Dados Veiculo", veiculo.toString())
-            }
-            view?.demonstrarListaVeiculos(arrayList)
-        })
-            .addOnFailureListener { e ->
-                Log.e("Carga Combo Marca", "onFailure()", e)
-                view?.demonstrarMsgErro("Erro ao carregar as Marcas do Veículo")
-            }
+        if (veiculo.ano != null && veiculo.ano!! > 0) {
+            qry = qry.whereEqualTo("ano", veiculo.ano);
+        }
+        if (veiculo.cod_cor != null && veiculo.cod_cor!! > 0) {
+            qry = qry.whereEqualTo("cod_cor", veiculo.cod_cor);
+        }
+        if (veiculo.cnpj != null && veiculo.cnpj!! > 0) {
+            qry = qry.whereEqualTo("cnpj", veiculo.cnpj);
+        }
+        if (veiculo.cod_modelo != null && veiculo.cod_modelo!! > 0) {
+            qry = qry.whereEqualTo("cod_modelo", veiculo.cod_modelo);
+        }
+        if (veiculo.cod_marca != null && veiculo.cod_marca!! > 0) {
+            qry = qry.whereEqualTo("cod_modelo", veiculo.cod_marca);
+        }
+        if (veiculo.placa != null && !veiculo.placa.isNullOrEmpty()) {
+            qry = qry.whereEqualTo("placa", veiculo.placa);
+        }
+        if (veiculo.valor != null && veiculo.valor!! > 0.00) {
+            qry = qry.whereEqualTo("valor", veiculo.valor);
+        }
+        if (veiculo.km != null && veiculo.km!! > 0) {
+            qry = qry.whereEqualTo("km", veiculo.km);
+        }
+
+        return qry;
     }
 
     override fun obterVeiculo(idDoc: String) {
@@ -74,12 +86,6 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
         var arrayVeiculo: ArrayList<Veiculo> = ArrayList()
         db = FirebaseFirestore.getInstance().collection("veiculo")
         val docRef = db.whereEqualTo("cod_modelo", codModelo)
-        //  val docRef = docVeiculo.whereEqualTo("cod_marca", cod_marca)
-        // .whereGreaterThanOrEqualTo("cod_modelo", cod_modelo)
-        //  .whereGreaterThanOrEqualTo("cod_cor", cod_cor)
-        //  .whereGreaterThanOrEqualTo("ano", ano)
-        //  .whereGreaterThanOrEqualTo("km", km)
-        //  .whereGreaterThanOrEqualTo("cod_empresa", cod_empresa)
 
         docRef.get().addOnCompleteListener(OnCompleteListener {
 

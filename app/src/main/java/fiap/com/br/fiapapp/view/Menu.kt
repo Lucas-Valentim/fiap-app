@@ -21,7 +21,7 @@ class Menu : AppCompatActivity() {
         }
 
         btnConsulta.setOnClickListener {
-            val intent = Intent(this, Consulta::class.java)
+            val intent = Intent(this, Lista::class.java)
             startActivity(intent)
         }
 

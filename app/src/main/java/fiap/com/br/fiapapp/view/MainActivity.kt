@@ -28,9 +28,6 @@ class MainActivity : AppCompatActivity(){
         val auth = Firebase.auth
 
         btnentrar.setOnClickListener {
-            val intent = Intent(this, Menu::class.java)
-            startActivity(intent)
-
             val email = editemail.text.toString()
             val senha = editsenha.text.toString()
 

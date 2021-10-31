@@ -1,6 +1,7 @@
 package fiap.com.br.fiapapp.presenter
 
 import android.view.View
+import com.google.firebase.firestore.Query
 import fiap.com.br.fiapapp.model.Veiculo
 
 interface VeiculoContrato {
@@ -17,7 +18,7 @@ interface VeiculoContrato {
 
     interface VeiculoPresenter{
         //Lista todos os veículos cadastrados
-        fun obterListaVeiculos()
+        fun obterListaVeiculos(veiculo: Veiculo): Query
 
         //Lista um veículo pela chave
         fun obterVeiculo(idDoc: String)
