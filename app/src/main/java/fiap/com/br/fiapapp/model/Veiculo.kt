@@ -1,13 +1,19 @@
 package fiap.com.br.fiapapp.model
 
-data class Veiculo (
-    var cod_veiculo: Int = 0,
-    var cod_modelo: Int = 0,
-    var cod_cor: Int = 0,
-    var cnpj: Long = 0,
-    var km: Long = 0,
-    var valor: Double = 0.00,
-    var placa: String = "",
-    var detalhes: String = ""
+import java.math.BigInteger
 
-)
+data class Veiculo (
+
+    var cod_veiculo: Int? = -1,
+    var cod_modelo: Int? = -1,
+    var cod_marca: Int? = -1,
+    var cod_cor: Int? = -1,
+    var cnpj: Long? = -1,
+    var km: Long? = -1L,
+    var valor: Double? = -1.00,
+    var ano: Int? = -1,
+    var filial: Int? = -1,
+    var placa: String? = "",
+    var detalhes: String? = ""
+){
+}
