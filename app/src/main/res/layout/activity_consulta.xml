@@ -159,7 +159,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txvAno" />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/txvKm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -188,6 +188,62 @@
             app:layout_constraintTop_toBottomOf="@+id/txvKm" />
 
         <TextView
+            android:id="@+id/txvPlaca"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:labelFor="@id/etnPlaca"
+            android:text="@string/placa"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etnKm" />
+
+        <EditText
+            android:id="@+id/etnPlaca"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:autofillHints="000"
+            android:ems="10"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvPlaca" />
+
+        <TextView
+            android:id="@+id/txvValor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:labelFor="@id/etnValor"
+            android:text="@string/valor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etnPlaca" />
+
+        <EditText
+            android:id="@+id/etnValor"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:autofillHints="000"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvValor" />
+
+        <TextView
             android:id="@+id/txvCor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -199,7 +255,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etnKm" />
+            app:layout_constraintTop_toBottomOf="@+id/etnValor" />
 
         <Spinner
             android:id="@+id/cmbCor"
@@ -226,7 +282,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cmbCor" />
+            app:layout_constraintTop_toBottomOf="@+id/cmbCor" />>
 
         <Spinner
             android:id="@+id/cmbFilial"
@@ -239,7 +295,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txvFilial" />
+            app:layout_constraintTop_toBottomOf="@+id/dtaAno" />-->
 
         <Button
             android:id="@+id/btnFiltrar"
@@ -253,7 +309,7 @@
             app:iconTint="#F44336"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cmbFilial" />
+            app:layout_constraintTop_toBottomOf="@+id/dtaAno" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

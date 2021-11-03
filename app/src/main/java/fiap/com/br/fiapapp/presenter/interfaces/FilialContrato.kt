@@ -1,4 +1,4 @@
-package fiap.com.br.fiapapp.presenter
+package fiap.com.br.fiapapp.presenter.interfaces
 
 interface FilialContrato {
 
@@ -12,6 +12,7 @@ interface FilialContrato {
 
     interface ListaFilialPresenter{
         fun obtemFilial()
+        fun obtemFilialPorNome(Nome : String) : Int?
         fun destruirView()
         fun obterFilialSelecionada(descricao: String)
     }

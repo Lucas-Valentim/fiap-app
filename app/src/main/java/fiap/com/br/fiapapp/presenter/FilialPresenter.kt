@@ -5,6 +5,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import fiap.com.br.fiapapp.model.*
+import fiap.com.br.fiapapp.presenter.interfaces.FilialContrato
 import kotlin.collections.ArrayList
 
 class FilialPresenter: FilialContrato.ListaFilialPresenter {
@@ -20,12 +21,14 @@ class FilialPresenter: FilialContrato.ListaFilialPresenter {
     override fun obtemFilial() {
 
         db = FirebaseFirestore.getInstance().collection("empresa")
+        spinnerArrayList.add("Selecione")
         db.get().addOnCompleteListener(OnCompleteListener {
 
             for (dataObject in it.getResult()!!.documents){
                 var filial = dataObject.toObject(Empresa::class.java)!!
-                spinnerArrayList.add(filial.cnpj.toString() + "/" + filial.cidade +
-                        "/" + filial.estado + "/" + filial.razao_social)
+                /*spinnerArrayList.add(filial.cnpj.toString() + "/" + filial.cidade +
+                        "/" + filial.estado + "/" + filial.razao_social)*/
+                spinnerArrayList.add(filial.cidade)
                 Log.i("Carga Combo Filiais", filial.razao_social)
             }
             view?.demonstraFiliais(spinnerArrayList)
@@ -37,10 +40,26 @@ class FilialPresenter: FilialContrato.ListaFilialPresenter {
 
     }
 
+    override fun obtemFilialPorNome(Nome : String) : Int? {
+        var codFilial = -1
+        db = FirebaseFirestore.getInstance().collection("empresa")
+        val doc = db.whereEqualTo("cidade", Nome).get();
+        var complete = doc.isComplete;
+        do{
+            complete = doc.isComplete;
+        }while (!complete)
+
+        val result = doc.getResult();
+        val obj = result?.toObjects(Empresa::class.java)?.first()
+
+        return obj?.cod_empresa;
+    }
+
     override fun obterFilialSelecionada(descricao: String) {
 
         var filial: Empresa = Empresa()
         db = FirebaseFirestore.getInstance().collection("empresa")
+        spinnerArrayList.add("Selecione")
         db.whereEqualTo("descricao", descricao).get()
 
             .addOnCompleteListener(OnCompleteListener {
@@ -57,9 +76,6 @@ class FilialPresenter: FilialContrato.ListaFilialPresenter {
                     e -> Log.e("Combo Cor", "onFailure()", e)
 
             }
-
-
-
     }
 
     override fun destruirView() {

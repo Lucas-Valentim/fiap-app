@@ -1,4 +1,4 @@
-package fiap.com.br.fiapapp.presenter
+package fiap.com.br.fiapapp.presenter.interfaces
 
 import com.google.firebase.firestore.Query
 import fiap.com.br.fiapapp.model.Marca
@@ -15,7 +15,8 @@ interface ModeloContrato {
     }
 
     interface ListaModeloPresenter{
-        fun obtemModelo(codMarca: Int)
+        fun obtemModelo(codMarca: Int?)
+        fun obtemModeloPorNome(Nome: String) : Int?
         fun obterModeloSelecionado(descricao: String)
         fun obterCodDescrModelo(modelo: Modelo): Query
         fun destruirView()
