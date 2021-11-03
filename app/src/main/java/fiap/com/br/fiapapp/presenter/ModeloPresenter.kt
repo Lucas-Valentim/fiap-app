@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import fiap.com.br.fiapapp.model.*
 import kotlin.collections.ArrayList
 
@@ -57,6 +58,43 @@ class ModeloPresenter: ModeloContrato.ListaModeloPresenter {
                     e -> Log.e("Combo MOdelo", "onFailure()", e)
 
             }
+
+    }
+
+    override fun obterCodDescrModelo(modelo: Modelo): Query {
+        db = FirebaseFirestore.getInstance().collection("modelo_veiculo");
+        var qry: Query = db
+
+        //var qry = db.whereGreaterThan("cod_modelo", -1);
+
+
+        if ((modelo.cod_modelo == null || modelo.cod_modelo <=0) &&
+            (modelo.descricao == null || modelo.descricao.isNullOrEmpty())  &&
+            (modelo.ano == null || modelo.ano >= 0)   ) {
+            qry = db.whereGreaterThan("cod_modelo", -1);
+            qry = qry.orderBy("descricao")
+
+        }
+        if (modelo.cod_modelo != null && modelo.cod_modelo!! > 0) {
+            qry = db.whereEqualTo("cod_modelo", modelo.cod_modelo)
+          }
+
+        if (modelo.descricao != null && !modelo.descricao.isNullOrEmpty()) {
+
+            if (qry != null){qry = qry.whereEqualTo("descricao",  modelo.descricao);}
+            else {qry = db.whereEqualTo("descricao", modelo.descricao)}
+        }
+
+        if (modelo.ano != null && modelo.ano > 0) {
+            if (qry != null){
+                qry = qry.whereEqualTo("ano",  modelo.ano);
+            }
+            else {
+                qry = db.whereEqualTo("ano", modelo.ano)
+                qry = qry.orderBy("descricao")
+            }
+        }
+        return qry
 
     }
 

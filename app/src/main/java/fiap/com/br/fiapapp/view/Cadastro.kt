@@ -10,11 +10,16 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.drawable.toDrawable
+import com.google.android.gms.tasks.OnSuccessListener
 import fiap.com.br.fiapapp.R
+import fiap.com.br.fiapapp.model.Cor
+import fiap.com.br.fiapapp.model.Marca
+import fiap.com.br.fiapapp.model.Modelo
 import fiap.com.br.fiapapp.model.Veiculo
 import fiap.com.br.fiapapp.presenter.*
 import java.util.*
@@ -47,8 +52,9 @@ ModeloContrato.ListaModeloView, CorContrato.ListaCorView, FilialContrato.ListaFi
     private lateinit var etmDetalhes: EditText
     private lateinit var btnLimpar: Button
 
-    private var codCor: Int = 1
-    private var codModelo: Int = 1
+    private var codCor: Int = 0
+    private var codModelo: Int = 0
+    private var codMarca: Int = 0
 
     private var nomeModelo: String = ""
     private var nomeCor: String = ""
@@ -142,16 +148,50 @@ ModeloContrato.ListaModeloView, CorContrato.ListaCorView, FilialContrato.ListaFi
                     .show()
             } else {
 
-                presenterModelo.obterModeloSelecionado(nomeModelo)
-                presenterCor.obterCorSelecionada(nomeCor)
+                var requestModelo = Modelo(0, 0, nomeModelo, 0)
+                var queryModeloSelecionado = presenterModelo.obterCodDescrModelo(requestModelo)
+                Log.i("Query MOdelo", queryModeloSelecionado.toString())
+
+
+                queryModeloSelecionado.get()
+                    .addOnSuccessListener { document ->
+                        for (doc in document) {
+                            var modeloSel = doc.toObject(Modelo::class.java);
+                            codModelo = modeloSel.cod_modelo
+
+                            Log.i("Modelo Selecionado", "recuperada ok! ${codModelo.toString()}")
+                        }
+
+                    }/*
+                    .addOnFailureListener {e ->
+                        Log.e("Modelo Selecionado", "erro !!", e)
+                        //  Toast.makeText(this, "Não foi possível recuperar a Marca escolhida", Toast.LENGTH_SHORT).show()
+                    } */
+
+                var requestCor = Cor(0, nomeCor)
+                var queryCorSelecionado = presenterCor.obterCodDescrCor(requestCor)
+                queryCorSelecionado.get()
+                    .addOnSuccessListener { document ->
+                        for (doc in document) {
+                            var corSel = doc.toObject(Cor::class.java);
+                            codCor = corSel.cod_cor
+                            Log.i("Cor Selecionado", "recuperada ok! ${codCor.toString()}")
+                        }
+
+                    }
+/*
+                    .addOnFailureListener {
+                        //  Toast.makeText(this, "Não foi possível recuperar a Marca escolhida", Toast.LENGTH_SHORT).show()
+                    }*/
 
                 presenterVeiculo.cadastrarVeiculo(
                     codModelo, codCor, cnpjEmpresa.toLong(), km.toLong(),
-                    valor.toDouble(), placa, detalhes
-                )
+                    valor.toDouble(), placa, detalhes)
+
             }
 
         }
+
 
         btnLimpar.setOnClickListener {
 

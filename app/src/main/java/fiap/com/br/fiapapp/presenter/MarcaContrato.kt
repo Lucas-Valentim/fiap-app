@@ -1,6 +1,9 @@
 package fiap.com.br.fiapapp.presenter
 
+import android.app.DownloadManager
 import android.content.Intent
+import com.google.firebase.firestore.Query
+import fiap.com.br.fiapapp.model.Marca
 
 interface MarcaContrato {
 
@@ -16,5 +19,6 @@ interface MarcaContrato {
          fun obtemMarca()
          fun destruirView()
          fun obterMarcaSelecionada(descricao: String)
+         fun obterCodDescrMarca(marca: Marca): Query
     }
 }

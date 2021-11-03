@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import fiap.com.br.fiapapp.model.*
 import kotlin.collections.ArrayList
 
@@ -56,9 +57,32 @@ class CorPresenter: CorContrato.ListaCorPresenter {
 
             }
 
-
-
     }
+
+    override fun obterCodDescrCor(cor: Cor): Query {
+        db = FirebaseFirestore.getInstance().collection("cor_veiculo");
+        var qry: Query = db
+
+
+        if ((cor.cod_cor == null || cor.cod_cor <=0) &&
+            (cor.descricao == null || cor.descricao.isNullOrEmpty()) ) {
+            qry = db.whereGreaterThan("cod_cor", -1);
+            qry = qry.orderBy("descricao")
+
+        }
+        if (cor.cod_cor != null && cor.cod_cor!! > 0) {
+            qry = db.whereEqualTo("cod_cor", cor.cod_cor)
+        }
+
+        if (cor.descricao != null && !cor.descricao.isNullOrEmpty()) {
+
+            if (qry != null){qry = qry.whereEqualTo("descricao",  cor.descricao);}
+            else {qry = db.whereEqualTo("descricao", cor.descricao)}
+        }
+
+        return qry
+    }
+
 
     override fun destruirView() {
         this.view = null

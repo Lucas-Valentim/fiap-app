@@ -5,6 +5,7 @@ import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import fiap.com.br.fiapapp.model.*
 import kotlin.collections.ArrayList
 
@@ -59,6 +60,23 @@ class MarcaPresenter: MarcaContrato.ListaMarcaPresenter {
             }
 
 
+
+    }
+
+    override fun obterCodDescrMarca(marca: Marca): Query {
+        db = FirebaseFirestore.getInstance().collection("marca_veiculo");
+
+        var qry = db.whereGreaterThan("cod_marca", -1);
+
+        if (marca.codmarca != null && marca.codmarca!! > 0) {
+            qry = qry.whereEqualTo("ano", marca.codmarca);
+        }
+
+        if (marca.descricao != null && !marca.descricao.isNullOrEmpty()) {
+            qry = qry.whereEqualTo("descricao", marca.descricao);
+        }
+
+        return qry
 
     }
 

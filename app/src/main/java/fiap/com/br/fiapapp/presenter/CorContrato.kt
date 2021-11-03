@@ -1,5 +1,8 @@
 package fiap.com.br.fiapapp.presenter
 
+import com.google.firebase.firestore.Query
+import fiap.com.br.fiapapp.model.Cor
+
 interface CorContrato {
 
 
@@ -15,5 +18,6 @@ interface CorContrato {
         fun obtemCor()
         fun destruirView()
         fun obterCorSelecionada(descricao: String)
+        fun obterCodDescrCor(cor: Cor): Query
     }
 }
