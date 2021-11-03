@@ -1,4 +1,4 @@
-package fiap.com.br.fiapapp.presenter
+package fiap.com.br.fiapapp.presenter.interfaces
 
 import com.google.firebase.firestore.Query
 import fiap.com.br.fiapapp.model.Cor
@@ -16,6 +16,7 @@ interface CorContrato {
 
     interface ListaCorPresenter{
         fun obtemCor()
+        fun obtemCorPorNome(Nome : String) : Int?
         fun destruirView()
         fun obterCorSelecionada(descricao: String)
         fun obterCodDescrCor(cor: Cor): Query

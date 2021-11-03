@@ -6,6 +6,7 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import fiap.com.br.fiapapp.model.*
+import fiap.com.br.fiapapp.presenter.interfaces.CorContrato
 import kotlin.collections.ArrayList
 
 class CorPresenter: CorContrato.ListaCorPresenter {
@@ -21,6 +22,7 @@ class CorPresenter: CorContrato.ListaCorPresenter {
     override fun obtemCor() {
 
         db = FirebaseFirestore.getInstance().collection("cor_veiculo")
+        spinnerArrayList.add("Selecione")
         db.get().addOnCompleteListener(OnCompleteListener {
 
             for (dataObject in it.getResult()!!.documents){
@@ -35,6 +37,21 @@ class CorPresenter: CorContrato.ListaCorPresenter {
                 view?.demonstrarMsgErro("Erro ao carregas as cores disponíveis")
             }
 
+    }
+
+    override fun obtemCorPorNome(Nome : String) : Int? {
+        var codCor = -1
+        db = FirebaseFirestore.getInstance().collection("cor_veiculo")
+        val doc = db.whereEqualTo("descricao", Nome).get();
+        var complete = doc.isComplete;
+        do{
+            complete = doc.isComplete;
+        }while (!complete)
+
+        val result = doc.getResult();
+        val obj = result?.toObjects(Cor::class.java)?.first()
+
+        return obj?.cod_cor;
     }
 
     override fun obterCorSelecionada(descricao: String) {

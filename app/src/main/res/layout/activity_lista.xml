@@ -103,18 +103,6 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/lblMarca"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/lightGrey"
-                    android:padding="14dip"
-                    android:text="@string/marca"
-                    android:textAlignment="center"
-                    android:textColor="#000"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
                     android:id="@+id/lblModelo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -22,6 +22,7 @@ import fiap.com.br.fiapapp.model.Marca
 import fiap.com.br.fiapapp.model.Modelo
 import fiap.com.br.fiapapp.model.Veiculo
 import fiap.com.br.fiapapp.presenter.*
+import fiap.com.br.fiapapp.presenter.interfaces.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -185,13 +186,12 @@ ModeloContrato.ListaModeloView, CorContrato.ListaCorView, FilialContrato.ListaFi
                     }*/
 
                 presenterVeiculo.cadastrarVeiculo(
-                    codModelo, codCor, cnpjEmpresa.toLong(), km.toLong(),
-                    valor.toDouble(), placa, detalhes)
-
+                    codModelo, codCor, cnpjEmpresa.toLong(), km.toInt(),
+                    valor.toDouble(), placa, detalhes
+                )
             }
 
         }
-
 
         btnLimpar.setOnClickListener {
 
