@@ -1,4 +1,4 @@
-package fiap.com.br.fiapapp.presenter
+package fiap.com.br.fiapapp.presenter.interfaces
 
 interface CorContrato {
 
@@ -13,6 +13,7 @@ interface CorContrato {
 
     interface ListaCorPresenter{
         fun obtemCor()
+        fun obtemCorPorNome(Nome : String) : Int?
         fun destruirView()
         fun obterCorSelecionada(descricao: String)
     }

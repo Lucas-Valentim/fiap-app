@@ -1,4 +1,4 @@
-package fiap.com.br.fiapapp.presenter
+package fiap.com.br.fiapapp.presenter.interfaces
 
 import android.view.View
 import com.google.firebase.firestore.Query
@@ -27,10 +27,10 @@ interface VeiculoContrato {
         fun obterListaVeiculosModelo(codModelo: Int)
 
         //cadastra um veículo
-        fun cadastrarVeiculo(codModelo: Int, codCor: Int, cnpjEmpresa: Long, km: Long, valor: Double, placa: String, detalhes: String)
+        fun cadastrarVeiculo(codModelo: Int, codCor: Int, cnpjEmpresa: Long, km: Int, valor: Double, placa: String, detalhes: String)
 
         //altera um veiculo
-        fun alterarVeiculo(idDoc: String, codModelo: Int, codCor: Int, cnpjEmpresa: Long, km: Long, valor: Double, placa: String, detalhes: String)
+        fun alterarVeiculo(idDoc: String, codModelo: Int, codCor: Int, cnpjEmpresa: Long, km: Int, valor: Double, placa: String, detalhes: String)
 
         //efetua a execução de um veículo dado uma chave (idoc do Firestore)
         fun excluirVeiculo(idDoc: String)

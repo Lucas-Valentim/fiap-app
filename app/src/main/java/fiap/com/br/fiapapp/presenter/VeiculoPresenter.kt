@@ -1,11 +1,10 @@
 package fiap.com.br.fiapapp.presenter
 
-import android.os.Binder
 import android.util.Log
-import android.view.View
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.firestore.*
 import fiap.com.br.fiapapp.model.*
+import fiap.com.br.fiapapp.presenter.interfaces.VeiculoContrato
 import kotlin.collections.ArrayList
 
 class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
@@ -35,14 +34,14 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
         if (veiculo.cod_cor != null && veiculo.cod_cor!! > 0) {
             qry = qry.whereEqualTo("cod_cor", veiculo.cod_cor);
         }
-        if (veiculo.cnpj != null && veiculo.cnpj!! > 0) {
-            qry = qry.whereEqualTo("cnpj", veiculo.cnpj);
+        if (veiculo.filial != null && veiculo.filial!! > 0) {
+            qry = qry.whereEqualTo("filial", veiculo.cnpj);
         }
         if (veiculo.cod_modelo != null && veiculo.cod_modelo!! > 0) {
             qry = qry.whereEqualTo("cod_modelo", veiculo.cod_modelo);
         }
         if (veiculo.cod_marca != null && veiculo.cod_marca!! > 0) {
-            qry = qry.whereEqualTo("cod_modelo", veiculo.cod_marca);
+            qry = qry.whereEqualTo("cod_marca", veiculo.cod_marca);
         }
         if (veiculo.placa != null && !veiculo.placa.isNullOrEmpty()) {
             qry = qry.whereEqualTo("placa", veiculo.placa);
@@ -67,7 +66,7 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
               veiculo.cod_veiculo = documents.data?.get("cod_veiculo") as Int
               veiculo.placa = documents.data?.get("placa") as String
               veiculo.valor = documents.data?.get("valor") as Double
-              veiculo.km = documents.data?.get("km") as Long
+              veiculo.km = documents.data?.get("km") as Int
               veiculo.cod_modelo = documents.data?.get("cod_modelo") as Int
               veiculo.cod_cor = documents.data?.get("cod_cor") as Int
               veiculo.cnpj = documents.data?.get("cnpj") as Long
@@ -111,7 +110,7 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
         codModelo: Int,
         codCor: Int,
         cnpjEmpresa: Long,
-        km: Long,
+        km: Int,
         valor: Double,
         placa: String,
         detalhes: String
@@ -146,7 +145,7 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
         codModelo: Int,
         codCor: Int,
         cnpjEmpresa: Long,
-        km: Long,
+        km: Int,
         valor: Double,
         placa: String,
         detalhes: String

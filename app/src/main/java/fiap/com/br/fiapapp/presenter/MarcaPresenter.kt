@@ -1,11 +1,12 @@
 package fiap.com.br.fiapapp.presenter
 
-import android.content.Intent
 import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import fiap.com.br.fiapapp.model.*
+import fiap.com.br.fiapapp.presenter.interfaces.MarcaContrato
 import kotlin.collections.ArrayList
 
 class MarcaPresenter: MarcaContrato.ListaMarcaPresenter {
@@ -23,7 +24,7 @@ class MarcaPresenter: MarcaContrato.ListaMarcaPresenter {
 
         db = FirebaseFirestore.getInstance().collection("marca_veiculo")
         db.get().addOnCompleteListener(OnCompleteListener {
-
+        spinnerArrayList.add("Selecione");
             for (dataObject in it.getResult()!!.documents){
                 var marca = dataObject.toObject(Marca::class.java)!!
                 spinnerArrayList.add(marca.descricao)
@@ -36,6 +37,29 @@ class MarcaPresenter: MarcaContrato.ListaMarcaPresenter {
                 Log.e("Carga Combo Marca", "onFailure()", e)
                 view?.demonstrarMsgErro("Erro ao carregas as marcas disponíveis")
             }
+    }
+
+    override fun obtemMarcaPorNome(nome: String) : Int? {
+
+        var idMarca = -1;
+        db = FirebaseFirestore.getInstance().collection("marca_veiculo")
+        val doc = db.whereEqualTo("descricao", nome).get();
+        var complete = doc.isComplete;
+        do{
+            complete = doc.isComplete;
+        }while (!complete)
+
+        val result = doc.getResult();
+        val obj = result?.toObjects(Marca::class.java)?.first()
+                /*.addOnSuccessListener { document ->
+                    for (doc in document) {
+                        var marca = doc.toObject(Marca::class.java);
+                        idMarca = marca.codmarca;
+                    }
+
+                }*/
+
+        return obj?.codmarca;
     }
 
     override fun obterMarcaSelecionada(descricao: String) {

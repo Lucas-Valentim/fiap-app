@@ -1,4 +1,4 @@
-package fiap.com.br.fiapapp.presenter
+package fiap.com.br.fiapapp.presenter.interfaces
 
 import android.content.Intent
 
@@ -14,6 +14,7 @@ interface MarcaContrato {
 
     interface ListaMarcaPresenter{
          fun obtemMarca()
+         fun obtemMarcaPorNome(nome: String) : Int?
          fun destruirView()
          fun obterMarcaSelecionada(descricao: String)
     }

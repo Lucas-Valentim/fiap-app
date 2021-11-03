@@ -1,4 +1,4 @@
-package fiap.com.br.fiapapp.presenter
+package fiap.com.br.fiapapp.presenter.interfaces
 
 import fiap.com.br.fiapapp.model.Marca
 
@@ -13,7 +13,8 @@ interface ModeloContrato {
     }
 
     interface ListaModeloPresenter{
-        fun obtemModelo(codMarca: Int)
+        fun obtemModelo(codMarca: Int?)
+        fun obtemModeloPorNome(Nome: String) : Int?
         fun obterModeloSelecionado(descricao: String)
         fun destruirView()
     }
