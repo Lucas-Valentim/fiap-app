@@ -147,12 +147,25 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/lblAcao"
+                    android:id="@+id/lblAcaoEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/lightGrey"
                     android:padding="14dip"
+                    android:paddingStart="0dip"
+                    android:paddingEnd="0dip"
                     android:text="@string/acao"
+                    android:textColor="#000"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/lblAcaoDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/lightGrey"
+                    android:padding="14dip"
+                    android:text=""
                     android:textColor="#000"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -166,5 +179,6 @@
                 android:background="@color/offWhite" />
 
         </TableLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

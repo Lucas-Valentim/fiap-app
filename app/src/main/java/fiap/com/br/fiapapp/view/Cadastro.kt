@@ -1,24 +1,19 @@
 package fiap.com.br.fiapapp.view
 
-import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.drawable.toDrawable
-import com.google.android.gms.tasks.OnSuccessListener
 import fiap.com.br.fiapapp.R
 import fiap.com.br.fiapapp.model.Cor
-import fiap.com.br.fiapapp.model.Marca
 import fiap.com.br.fiapapp.model.Modelo
 import fiap.com.br.fiapapp.model.Veiculo
 import fiap.com.br.fiapapp.presenter.*
@@ -27,13 +22,13 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class Cadastro: AppCompatActivity(), VeiculoContrato.VeiculoView , MarcaContrato.ListaMarcaView,
-ModeloContrato.ListaModeloView, CorContrato.ListaCorView, FilialContrato.ListaFilialView {
+ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
 
 
     private var presenterMarca: MarcaContrato.ListaMarcaPresenter = MarcaPresenter(this)
-    private var presenterModelo: ModeloContrato.ListaModeloPresenter = ModeloPresenter(this)
+    private var presenterModelo: ModeloContrato.ModeloPresenter = ModeloPresenter(this)
     private var presenterCor: CorContrato.ListaCorPresenter = CorPresenter(this)
-    private var presenterFilial: FilialContrato.ListaFilialPresenter = FilialPresenter(this)
+    private var presenterFilial: FilialContrato.FilialPresenter = FilialPresenter(this)
     private var presenterVeiculo: VeiculoContrato.VeiculoPresenter = VeiculoPresenter(this)
 
     private var spinnerArrayMarca = ArrayList<String>()
