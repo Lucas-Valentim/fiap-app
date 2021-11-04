@@ -47,6 +47,12 @@ CorContrato.ListaCorView, FilialContrato.ListaFilialView{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_consulta)
 
+        val btnMenu = findViewById<Button>(R.id.btnMenu)
+        btnMenu.setOnClickListener {
+            val intent = Intent(this, Menu::class.java)
+            startActivity(intent)
+        }
+
         cmbMarca = findViewById<Spinner>(R.id.cmbMarca)
         cmbModelo = findViewById<Spinner>(R.id.cmbModelo)
         //cmbCor = findViewById<Spinner>(R.id.cmbCor)

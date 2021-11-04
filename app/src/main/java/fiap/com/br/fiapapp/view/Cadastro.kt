@@ -77,6 +77,12 @@ ModeloContrato.ListaModeloView, CorContrato.ListaCorView, FilialContrato.ListaFi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastro)
 
+        val btnMenu = findViewById<Button>(R.id.btnMenu)
+        btnMenu.setOnClickListener {
+            val intent = Intent(this, Menu::class.java)
+            startActivity(intent)
+        }
+
         //val cmbMarca = resources.getStringArray(R.array.marcas)
         /*Populando o combo marca
         val spinner = findViewById<Spinner>(R.id.cmbMarca)
