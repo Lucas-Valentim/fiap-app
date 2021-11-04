@@ -9,14 +9,14 @@ import fiap.com.br.fiapapp.model.*
 import fiap.com.br.fiapapp.presenter.interfaces.ModeloContrato
 import kotlin.collections.ArrayList
 
-class ModeloPresenter: ModeloContrato.ListaModeloPresenter {
+class ModeloPresenter: ModeloContrato.ModeloPresenter {
 //    var model: Marca, var view: Activity
 
-    private var view: ModeloContrato.ListaModeloView?
+    private var view: ModeloContrato.ModeloView?
     private lateinit var db: CollectionReference
     private var spinnerArrayList = ArrayList<String>()
 
-    constructor(view: ModeloContrato.ListaModeloView){
+    constructor(view: ModeloContrato.ModeloView){
         this.view = view
     }
 
@@ -73,6 +73,26 @@ class ModeloPresenter: ModeloContrato.ListaModeloPresenter {
         val obj = result?.toObjects(Modelo::class.java)?.first()
 
         return obj?.cod_modelo;
+    }
+
+    override fun obtemDescricaoModeloPorCodigo(Codigo: Int?) : String? {
+        db = FirebaseFirestore.getInstance().collection("modelo_veiculo")
+        val doc = db.whereEqualTo("cod_modelo", Codigo).get();
+        var complete: Boolean;
+        do{
+            complete = doc.isComplete;
+        }while (!complete)
+
+        val result = doc.getResult();
+        val obj = result?.toObjects(Modelo::class.java)
+        val modelo: Modelo
+
+        if(obj!!.count() > 0){
+            modelo = obj.first()
+            return modelo.descricao
+        }
+
+        return "";
     }
 
     override fun obterModeloSelecionado(descricao: String) {

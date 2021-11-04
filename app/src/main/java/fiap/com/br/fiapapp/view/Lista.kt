@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.*
@@ -13,14 +14,23 @@ import android.view.ViewGroup
 import fiap.com.br.fiapapp.R
 import fiap.com.br.fiapapp.model.Veiculo
 import fiap.com.br.fiapapp.presenter.*
+import fiap.com.br.fiapapp.presenter.interfaces.FilialContrato
+import fiap.com.br.fiapapp.presenter.interfaces.ModeloContrato
 import fiap.com.br.fiapapp.presenter.interfaces.VeiculoContrato
-import kotlin.math.log
+import android.widget.LinearLayout
+import android.graphics.drawable.Drawable
+import android.os.Build
+import androidx.annotation.RequiresApi
 
 
-class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView {
+class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView, FilialContrato.FilialView, ModeloContrato.ModeloView {
 
     // private var firestoreDB = FirebaseFirestore.getInstance()
+    val presenterEmpresa: FilialContrato.FilialPresenter = FilialPresenter(this)
+    val presenterVeiculo: VeiculoContrato.VeiculoPresenter = VeiculoPresenter(this)
+    val presenterModelo: ModeloContrato.ModeloPresenter= ModeloPresenter(this)
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista)
@@ -28,7 +38,7 @@ class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView {
         Log.i("Consulta", "Iniciou onCreate")
 
         val btnMenu = findViewById<Button>(R.id.btnMenu)
-        var presenterVeiculo: VeiculoContrato.VeiculoPresenter = VeiculoPresenter(this)
+
         val btnFiltro = findViewById<Button>(R.id.btnFiltrar)
 
         btnFiltro.setOnClickListener {
@@ -103,7 +113,8 @@ class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView {
             }
     }
 
-    @SuppressLint("ResourceAsColor")
+    @RequiresApi(Build.VERSION_CODES.Q)
+    @SuppressLint("ResourceAsColor", "UseCompatLoadingForDrawables")
     private fun adicionarRow(veic: Veiculo) : TableRow{
 
         val labelModelo = findViewById<TextView>(R.id.lblModelo)
@@ -125,7 +136,8 @@ class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView {
         paramsModelo.height = labelModelo.height
         colModelo.gravity = Gravity.CENTER_VERTICAL
         colModelo.setLayoutParams(paramsModelo)
-        colModelo.setText(veic.cod_modelo.toString())
+        val descricaoModelo = presenterModelo.obtemDescricaoModeloPorCodigo(veic.cod_modelo)
+        colModelo.setText(descricaoModelo)
 
         var colAno = TextView(this)
         colAno.setBackgroundResource(R.color.lightGrey)
@@ -147,7 +159,8 @@ class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView {
         paramsFilial.height = labelFilial.height
         colFilial.gravity = Gravity.CENTER_VERTICAL
         colFilial.setLayoutParams(paramsFilial)
-        colFilial.setText(veic.filial.toString())
+        val razaoSocial = presenterEmpresa.obtemNomeFilialPorCodigo(veic.filial)
+        colFilial.setText(razaoSocial)
 
         var colValor = TextView(this)
         colValor.setBackgroundResource(R.color.lightGrey)
@@ -160,32 +173,37 @@ class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView {
         colValor.setLayoutParams(paramsValor)
         colValor.setText(veic.valor.toString())
 
-        /*var colAcaoEdit = ImageButton(this)
+        val lp = LinearLayout.LayoutParams(23, 23)
+
+        var colAcaoEdit = ImageButton(this)
         colAcaoEdit.isClickable = true
         colAcaoEdit.setBackgroundColor(R.color.lightGrey);
-        colAcaoEdit.setPadding(1, 1, 1, 1)
-        colAcaoEdit.scaleType = ImageView.ScaleType.FIT_CENTER
-        colAcaoEdit.adjustViewBounds = true
-        colAcaoEdit.setBackgroundResource(R.drawable.pencil_icon)
+        colAcaoEdit.setBackgroundResource(R.color.lightGrey)
+        colAcaoEdit.scaleType = ImageView.ScaleType.CENTER
+        colAcaoEdit.setImageResource(R.drawable.edit_icon)
+        colAcaoEdit.setOnClickListener{
+            val intent = Intent(this, Registro::class.java)
+            startActivity(intent)
+        }
+
         var colAcaoDelete = ImageButton(this)
         colAcaoDelete.isClickable = true
         colAcaoDelete.setBackgroundColor(R.color.lightGrey);
-        colAcaoDelete.setPadding(1, 1, 1, 1)
-        colAcaoDelete.scaleType = ImageView.ScaleType.FIT_CENTER
-        colAcaoDelete.adjustViewBounds = true
-        colAcaoDelete.setBackgroundResource(R.drawable.pencil_icon)*/
+        colAcaoDelete.setBackgroundResource(R.color.lightGrey)
+        colAcaoDelete.scaleType = ImageView.ScaleType.CENTER
+        colAcaoDelete.setImageResource(R.drawable.delete_icon)
+        colAcaoDelete.setOnClickListener{
+            val intent = Intent(this, Cadastro::class.java)
+            startActivity(intent)
+        }
+
 
         tbRowVeiculos.addView(colModelo)
         tbRowVeiculos.addView(colAno)
         tbRowVeiculos.addView(colFilial)
         tbRowVeiculos.addView(colValor)
-        /*tbRowVeiculos.addView(colAcaoEdit, 5)
-        tbRowVeiculos.addView(colAcaoDelete, 5)*/
-
-        //  tbRowVeiculos.addView(colAcao, 4 )
-
-        //   var colCabecAcao = TextView(this)
-        //   configLinha(colCabecAcao)
+        tbRowVeiculos.addView(colAcaoEdit)
+        tbRowVeiculos.addView(colAcaoDelete)
 
         return tbRowVeiculos;
     }
@@ -195,6 +213,22 @@ class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView {
     }
 
     override fun demonstrarVeiculo(veiculo: Veiculo) {
+        TODO("Not yet implemented")
+    }
+
+    override fun demonstraFiliais(filiais: ArrayList<String>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun demonstrarFilialSelecionada(codFilial: Int, razaoSocial: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun demonstraModelos(modelos: ArrayList<String>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun demonstrarModeloSelecionado(codModelo: Int, descricao: String) {
         TODO("Not yet implemented")
     }
 

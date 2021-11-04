@@ -19,13 +19,13 @@ import fiap.com.br.fiapapp.presenter.interfaces.MarcaContrato
 import fiap.com.br.fiapapp.presenter.interfaces.ModeloContrato
 
 
-class Consulta : AppCompatActivity(), MarcaContrato.ListaMarcaView, ModeloContrato.ListaModeloView,
-CorContrato.ListaCorView, FilialContrato.ListaFilialView{
+class Consulta : AppCompatActivity(), MarcaContrato.ListaMarcaView, ModeloContrato.ModeloView,
+CorContrato.ListaCorView, FilialContrato.FilialView{
 
     private var presenterMarca: MarcaContrato.ListaMarcaPresenter = MarcaPresenter(this)
-    private var presenterModelo: ModeloContrato.ListaModeloPresenter = ModeloPresenter(this)
+    private var presenterModelo: ModeloContrato.ModeloPresenter = ModeloPresenter(this)
     private var presenterCor: CorContrato.ListaCorPresenter = CorPresenter(this)
-    private var presenterFilial: FilialContrato.ListaFilialPresenter = FilialPresenter(this)
+    private var presenterFilial: FilialContrato.FilialPresenter = FilialPresenter(this)
     private var marcaSerlecionada: Int = 0
 
 

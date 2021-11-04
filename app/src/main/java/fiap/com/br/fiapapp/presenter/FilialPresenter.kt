@@ -6,15 +6,16 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import fiap.com.br.fiapapp.model.*
 import fiap.com.br.fiapapp.presenter.interfaces.FilialContrato
+import fiap.com.br.fiapapp.view.Lista
 import kotlin.collections.ArrayList
 
-class FilialPresenter: FilialContrato.ListaFilialPresenter {
+class FilialPresenter: FilialContrato.FilialPresenter {
 
-    private var view: FilialContrato.ListaFilialView?
+    private var view: FilialContrato.FilialView?
     private lateinit var db: CollectionReference
     private var spinnerArrayList = ArrayList<String>()
 
-    constructor(view: FilialContrato.ListaFilialView){
+    constructor(view: FilialContrato.FilialView){
         this.view = view
     }
 
@@ -41,7 +42,6 @@ class FilialPresenter: FilialContrato.ListaFilialPresenter {
     }
 
     override fun obtemFilialPorNome(Nome : String) : Int? {
-        var codFilial = -1
         db = FirebaseFirestore.getInstance().collection("empresa")
         val doc = db.whereEqualTo("cidade", Nome).get();
         var complete = doc.isComplete;
@@ -53,6 +53,26 @@ class FilialPresenter: FilialContrato.ListaFilialPresenter {
         val obj = result?.toObjects(Empresa::class.java)?.first()
 
         return obj?.cod_empresa;
+    }
+
+    override fun obtemNomeFilialPorCodigo(Codigo : Int?) : String?{
+        db = FirebaseFirestore.getInstance().collection("empresa")
+        val doc = db.whereEqualTo("cod_empresa", Codigo).get();
+        var complete: Boolean;
+        do{
+            complete = doc.isComplete;
+        }while (!complete)
+
+        val result = doc.getResult();
+        val obj = result?.toObjects(Empresa::class.java)
+        val empresa: Empresa
+
+        if(obj!!.count() > 0){
+            empresa = obj.first()
+            return empresa.razao_social
+        }
+
+        return ""
     }
 
     override fun obterFilialSelecionada(descricao: String) {

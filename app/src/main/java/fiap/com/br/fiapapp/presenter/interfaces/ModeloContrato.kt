@@ -7,16 +7,17 @@ import fiap.com.br.fiapapp.model.Modelo
 interface ModeloContrato {
 
 
-    interface ListaModeloView{
+    interface ModeloView{
         fun demonstraModelos(modelos: ArrayList<String>)
         fun demonstrarModeloSelecionado (codModelo: Int, descricao: String)
         fun demonstrarMsgErro(msg: String)
 
     }
 
-    interface ListaModeloPresenter{
+    interface ModeloPresenter{
         fun obtemModelo(codMarca: Int?)
         fun obtemModeloPorNome(Nome: String) : Int?
+        fun obtemDescricaoModeloPorCodigo(Codigo: Int?) : String?
         fun obterModeloSelecionado(descricao: String)
         fun obterCodDescrModelo(modelo: Modelo): Query
         fun destruirView()
