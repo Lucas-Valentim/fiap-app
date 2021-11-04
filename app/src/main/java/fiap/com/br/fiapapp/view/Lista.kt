@@ -27,11 +27,16 @@ class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView {
 
         Log.i("Consulta", "Iniciou onCreate")
 
+        val btnMenu = findViewById<Button>(R.id.btnMenu)
         var presenterVeiculo: VeiculoContrato.VeiculoPresenter = VeiculoPresenter(this)
         val btnFiltro = findViewById<Button>(R.id.btnFiltrar)
 
         btnFiltro.setOnClickListener {
             val intent = Intent(this, Consulta::class.java)
+            startActivity(intent)
+        }
+        btnMenu.setOnClickListener {
+            val intent = Intent(this, Menu::class.java)
             startActivity(intent)
         }
 
@@ -127,8 +132,8 @@ class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView {
         colAno.textAlignment = View.TEXT_ALIGNMENT_CENTER
         colAno.setTextColor(R.color.black)
         val paramsAno: ViewGroup.LayoutParams = labelAno.layoutParams
-        paramsAno.width = labelModelo.width
-        paramsAno.height = labelModelo.height
+        paramsAno.width = labelAno.width
+        paramsAno.height = labelAno.height
         colAno.gravity = Gravity.CENTER_VERTICAL
         colAno.setLayoutParams(paramsAno)
         colAno.setText(veic.ano.toString())
@@ -138,8 +143,8 @@ class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView {
         colFilial.textAlignment = View.TEXT_ALIGNMENT_CENTER
         colFilial.setTextColor(R.color.black)
         val paramsFilial: ViewGroup.LayoutParams = labelFilial.layoutParams
-        paramsFilial.width = labelModelo.width
-        paramsFilial.height = labelModelo.height
+        paramsFilial.width = labelFilial.width
+        paramsFilial.height = labelFilial.height
         colFilial.gravity = Gravity.CENTER_VERTICAL
         colFilial.setLayoutParams(paramsFilial)
         colFilial.setText(veic.filial.toString())
@@ -149,8 +154,8 @@ class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView {
         colValor.textAlignment = View.TEXT_ALIGNMENT_CENTER
         colValor.setTextColor(R.color.black)
         val paramsValor: ViewGroup.LayoutParams = labelValor.layoutParams
-        paramsValor.width = labelModelo.width
-        paramsValor.height = labelModelo.height
+        paramsValor.width = labelValor.width
+        paramsValor.height = labelValor.height
         colValor.gravity = Gravity.CENTER_VERTICAL
         colValor.setLayoutParams(paramsValor)
         colValor.setText(veic.valor.toString())
