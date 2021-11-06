@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -17,20 +16,15 @@ import fiap.com.br.fiapapp.presenter.*
 import fiap.com.br.fiapapp.presenter.interfaces.FilialContrato
 import fiap.com.br.fiapapp.presenter.interfaces.ModeloContrato
 import fiap.com.br.fiapapp.presenter.interfaces.VeiculoContrato
-import android.widget.LinearLayout
-import android.graphics.drawable.Drawable
 import android.os.Build
 import androidx.annotation.RequiresApi
 import fiap.com.br.fiapapp.model.*
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import fiap.com.br.fiapapp.model.Empresa
 import fiap.com.br.fiapapp.model.Modelo
 
 
 class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView, FilialContrato.FilialView, ModeloContrato.ModeloView {
 
-    // private var firestoreDB = FirebaseFirestore.getInstance()
     val presenterEmpresa: FilialContrato.FilialPresenter = FilialPresenter(this)
     val presenterVeiculo: VeiculoContrato.VeiculoPresenter = VeiculoPresenter(this)
     val presenterModelo: ModeloContrato.ModeloPresenter= ModeloPresenter(this)
@@ -157,7 +151,6 @@ class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView, FilialContrato.F
         paramsFilial.height = labelFilial.height
         colFilial.gravity = Gravity.CENTER_VERTICAL
         colFilial.setLayoutParams(paramsFilial)
-        //val razaoSocial = presenterEmpresa.obtemNomeFilialPorCodigo(veic.filial)
         val razaoSocial = listaFiliais.filter { fil -> fil.cod_empresa == veic.filial }.firstOrNull()?.razao_social
         colFilial.setText(razaoSocial)
 
@@ -208,23 +201,11 @@ class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView, FilialContrato.F
         return tbRowVeiculos;
     }
 
-    override fun demonstrarListaVeiculos(veiculos: ArrayList<Veiculo>) {
-        TODO("Not yet implemented")
-    }
-
     override fun demonstrarVeiculo(veiculo: Veiculo) {
         TODO("Not yet implemented")
     }
 
-    override fun demonstraFiliais(filiais: ArrayList<String>) {
-        TODO("Not yet implemented")
-    }
-
     override fun demonstraRazaoSocial(filiais: ArrayList<String>) {
-        TODO("Not yet implemented")
-    }
-
-    override fun demonstrarFilialSelecionada(codFilial: Int, razaoSocial: String) {
         TODO("Not yet implemented")
     }
 
@@ -233,10 +214,6 @@ class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView, FilialContrato.F
     }
 
     override fun demonstrarModelosMarcaSel(modelos: ArrayList<String>, descrModeloSel: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun demonstrarModeloSelecionado(codModelo: Int, descricao: String) {
         TODO("Not yet implemented")
     }
 

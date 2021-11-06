@@ -1,14 +1,10 @@
 package fiap.com.br.fiapapp.view
 
-import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
-import android.icu.text.SimpleDateFormat
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -22,9 +18,7 @@ import fiap.com.br.fiapapp.model.Modelo
 import fiap.com.br.fiapapp.model.Veiculo
 import fiap.com.br.fiapapp.presenter.*
 import fiap.com.br.fiapapp.presenter.interfaces.*
-import java.util.*
 import kotlin.collections.ArrayList
-import fiap.com.br.fiapapp.MascaraFormat
 import fiap.com.br.fiapapp.model.*
 
 class Cadastro: AppCompatActivity(), VeiculoContrato.VeiculoView , MarcaContrato.ListaMarcaView,
@@ -55,24 +49,16 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
     private lateinit var btnLimpar: Button
 
     private var codCor: Int = 0
-    private var codModelo: Int = 0
-    private var codMarca: Int = 0
 
     private var nomeModelo: String = ""
     private var nomeMarca: String = ""
     private var nomeCor: String = ""
     private var razaoSocial: String = ""
-    private lateinit var textArray: List<String>
-    private var cnpjEmpresa: String = ""
     private var ano: String = ""
     private var km: String = ""
     private var valor: String = ""
     private var placa: String = ""
     private var detalhes: String = ""
-
-    private final val ANO_INICIO = 1900
-
-
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,7 +85,6 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
 
         presenterMarca.obtemMarca()
         presenterCor.obtemCor()
-        presenterFilial.obtemFilial()
         presenterFilial.obtemRazaoSocial()
 
 
@@ -125,7 +110,7 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
             if (cmbModelo.isEmpty()) {
                 nomeModelo = ""
             }else {
-                nomeModelo = cmbModelo?.selectedItem.toString()
+                nomeModelo = cmbModelo.selectedItem.toString()
             }
             nomeCor = cmbCor.selectedItem.toString()
             razaoSocial = cmbFilial.selectedItem.toString()
@@ -181,10 +166,6 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
 
     }
 
-    override fun demonstraFiliais(filiais: ArrayList<String>) {
-
-    }
-
     override fun demonstraRazaoSocial(filiais: ArrayList<String>) {
         spinnerArrayFilial = filiais
         var adapterFilial = ArrayAdapter<String>(
@@ -195,10 +176,6 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
         adapterFilial.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         cmbFilial.adapter = adapterFilial
         adapterFilial.notifyDataSetChanged()
-    }
-
-    override fun demonstrarFilialSelecionada(codFilial: Int, razaoSocial: String) {
-        TODO("Not yet implemented")
     }
 
     override fun demonstraMarcas(marcas: ArrayList<String>) {
@@ -233,10 +210,6 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
         TODO("Not yet implemented")
     }
 
-    override fun demonstrarModeloSelecionado(codModelo: Int, descricao: String) {
-        TODO("Not yet implemented")
-    }
-
     override fun demonstrarMsgErro(msg: String) {
 
         if (msg.isNotEmpty()) {
@@ -250,23 +223,16 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
                 .setPositiveButton(
                     "ok",
                     DialogInterface.OnClickListener { dialogInterface, i ->
-                        // Toast.makeText(this, "Aceite Usuario", Toast.LENGTH_SHORT).show()
-
-                        //Problema: Verificar como colocar o foco no campo que está inconsistente
                     })
                 .show()
         }
     }
 
-    override fun carregarModelos(filiais: ArrayList<Modelo>) {
+    override fun carregarModelos(modelos: ArrayList<Modelo>) {
         TODO("Not yet implemented")
     }
 
     override fun carregarFiliais(filiais: ArrayList<Empresa>) {
-        TODO("Not yet implemented")
-    }
-
-    override fun demonstrarListaVeiculos(veiculos: ArrayList<Veiculo>) {
         TODO("Not yet implemented")
     }
 
@@ -294,6 +260,10 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
     }
 
     override fun demonstrarFilialVeiculo(empresa: Empresa) {
+        TODO("Not yet implemented")
+    }
+
+    override fun carregarVeiculos(veiculos: ArrayList<Veiculo>) {
         TODO("Not yet implemented")
     }
 

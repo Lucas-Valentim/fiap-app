@@ -20,6 +20,5 @@ interface MarcaContrato {
          fun obtemMarcaPorNome(nome: String) : Int?
          fun destruirView()
          fun obterMarcaSelecionada(descricao: String)
-         fun obterCodDescrMarca(marca: Marca): Query
     }
 }

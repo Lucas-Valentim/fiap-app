@@ -1,13 +1,10 @@
 package fiap.com.br.fiapapp.view
 
-import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
-import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.isEmpty
 import fiap.com.br.fiapapp.R
 import fiap.com.br.fiapapp.model.*
@@ -75,7 +72,7 @@ class Alteracao : AppCompatActivity(), VeiculoContrato.VeiculoView, MarcaContrat
 
             var nomeModelo = ""
             if (!cmbModelo.isEmpty()) {
-               nomeModelo = cmbModelo?.selectedItem.toString()
+               nomeModelo = cmbModelo.selectedItem.toString()
             }
 
             var nomeCor = cmbCor.selectedItem.toString()
@@ -127,10 +124,7 @@ class Alteracao : AppCompatActivity(), VeiculoContrato.VeiculoView, MarcaContrat
 
             }
         }
-
-
     }
-
 
     private fun obterPosicao (sp: Spinner, text: String): Int{
         var encontrado = false
@@ -151,10 +145,6 @@ class Alteracao : AppCompatActivity(), VeiculoContrato.VeiculoView, MarcaContrat
 
         return pos
 
-    }
-
-    override fun demonstrarListaVeiculos(veiculos: ArrayList<Veiculo>) {
-        TODO("Not yet implemented")
     }
 
     override fun demonstrarVeiculo( veiculo: Veiculo ) {
@@ -183,10 +173,6 @@ class Alteracao : AppCompatActivity(), VeiculoContrato.VeiculoView, MarcaContrat
         TODO("Not yet implemented")
     }
 
-    override fun demonstraFiliais(filiais: ArrayList<String>) {
-
-    }
-
     override fun demonstraRazaoSocial(filiais: ArrayList<String>) {
         spinnerArrayFilial = filiais
         var adapterFilial = ArrayAdapter<String>(
@@ -197,10 +183,6 @@ class Alteracao : AppCompatActivity(), VeiculoContrato.VeiculoView, MarcaContrat
         adapterFilial.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         cmbFilial.adapter = adapterFilial
         adapterFilial.notifyDataSetChanged()
-    }
-
-    override fun demonstrarFilialSelecionada(codFilial: Int, razaoSocial: String) {
-        TODO("Not yet implemented")
     }
 
     override fun demonstraMarcas(marcas: ArrayList<String>) {
@@ -248,15 +230,19 @@ class Alteracao : AppCompatActivity(), VeiculoContrato.VeiculoView, MarcaContrat
 
     }
 
-    override fun demonstrarModeloSelecionado(codModelo: Int, descricao: String) {
-        TODO("Not yet implemented")
-    }
-
     override fun demonstrarMsgErro(msg: String) {
         if (msg.isNotEmpty()) {
 
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun carregarModelos(modelos: ArrayList<Modelo>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun carregarFiliais(filiais: ArrayList<Empresa>) {
+        TODO("Not yet implemented")
     }
 
     override fun demonstrarMsgSucesso(msg: String) {
@@ -289,5 +275,9 @@ class Alteracao : AppCompatActivity(), VeiculoContrato.VeiculoView, MarcaContrat
     override fun demonstrarFilialVeiculo(empresa: Empresa) {
         var posicao = obterPosicao(cmbFilial, empresa.razao_social)
         cmbFilial.setSelection(posicao)
+    }
+
+    override fun carregarVeiculos(veiculos: ArrayList<Veiculo>) {
+        TODO("Not yet implemented")
     }
 }

@@ -11,9 +11,8 @@ interface ModeloContrato {
     interface ModeloView{
         fun demonstraModelos(modelos: ArrayList<String>)
         fun demonstrarModelosMarcaSel(modelos: ArrayList<String>, descrModeloSel: String)
-        fun demonstrarModeloSelecionado (codModelo: Int, descricao: String)
         fun demonstrarMsgErro(msg: String)
-        fun carregarModelos(filiais: ArrayList<Modelo>)
+        fun carregarModelos(modelos: ArrayList<Modelo>)
 
     }
 
@@ -22,9 +21,6 @@ interface ModeloContrato {
         fun obtemModeloMarcaSel(codMarca: Int?, descrModeloSel: String)
         fun obtemTodosModelos()
         fun obtemModeloPorNome(Nome: String) : Int?
-        fun obtemDescricaoModeloPorCodigo(Codigo: Int?) : String?
-        fun obterModeloSelecionado(descricao: String)
-        fun obterCodDescrModelo(modelo: Modelo): Query
         fun destruirView()
     }
 }

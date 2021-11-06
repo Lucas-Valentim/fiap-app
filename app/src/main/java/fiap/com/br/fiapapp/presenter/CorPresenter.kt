@@ -39,24 +39,9 @@ class CorPresenter: CorContrato.ListaCorPresenter {
 
     }
 
-    override fun obtemCorPorNome(Nome : String) : Int? {
-        var codCor = -1
-        db = FirebaseFirestore.getInstance().collection("cor_veiculo")
-        val doc = db.whereEqualTo("descricao", Nome).get();
-        var complete = doc.isComplete;
-        do{
-            complete = doc.isComplete;
-        }while (!complete)
-
-        val result = doc.getResult();
-        val obj = result?.toObjects(Cor::class.java)?.first()
-
-        return obj?.cod_cor;
-    }
-
     override fun obterCorSelecionada(descricao: String) {
 
-        var cor: Cor = Cor()
+        var cor = Cor()
         db = FirebaseFirestore.getInstance().collection("cor_veiculo")
         db.whereEqualTo("descricao", descricao).get()
 
@@ -81,20 +66,18 @@ class CorPresenter: CorContrato.ListaCorPresenter {
         var qry: Query = db
 
 
-        if ((cor.cod_cor == null || cor.cod_cor <=0) &&
-            (cor.descricao == null || cor.descricao.isNullOrEmpty()) ) {
+        if ((cor.cod_cor <=0) &&
+            (cor.descricao.isEmpty()) ) {
             qry = db.whereGreaterThan("cod_cor", -1);
             qry = qry.orderBy("descricao")
 
         }
-        if (cor.cod_cor != null && cor.cod_cor!! > 0) {
+        if (cor.cod_cor > 0) {
             qry = db.whereEqualTo("cod_cor", cor.cod_cor)
         }
 
-        if (cor.descricao != null && !cor.descricao.isNullOrEmpty()) {
-
-            if (qry != null){qry = qry.whereEqualTo("descricao",  cor.descricao);}
-            else {qry = db.whereEqualTo("descricao", cor.descricao)}
+        if (cor.descricao.isNotEmpty()) {
+            qry = qry.whereEqualTo("descricao",  cor.descricao);
         }
 
         return qry

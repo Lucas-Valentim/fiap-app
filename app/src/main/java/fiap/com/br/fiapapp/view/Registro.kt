@@ -32,20 +32,12 @@ class Registro : AppCompatActivity() {
 
         val loadImage = registerForActivityResult(ActivityResultContracts.GetContent(),
             ActivityResultCallback{
-
- //               ivfoto.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.bg_image_circulo))
                 ivfoto.setImageURI(it)
-                Log.i("Teste", "carregou")
-
             })
 
         btnfoto.setOnClickListener {
-
             Log.i("Teste", "Entrou no click do botão")
-
             loadImage.launch("image/*")
-
-   //         selectFoto()
         }
 
 

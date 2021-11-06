@@ -16,7 +16,6 @@ interface CorContrato {
 
     interface ListaCorPresenter{
         fun obtemCor()
-        fun obtemCorPorNome(Nome : String) : Int?
         fun destruirView()
         fun obterCorSelecionada(descricao: String)
         fun obterCodDescrCor(cor: Cor): Query
