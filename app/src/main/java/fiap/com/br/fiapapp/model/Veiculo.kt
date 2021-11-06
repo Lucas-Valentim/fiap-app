@@ -3,7 +3,7 @@ package fiap.com.br.fiapapp.model
 import java.math.BigInteger
 
 data class Veiculo (
-
+    var id: String = "",
     var cod_veiculo: Int? = -1,
     var cod_modelo: Int? = -1,
     var cod_marca: Int? = -1,

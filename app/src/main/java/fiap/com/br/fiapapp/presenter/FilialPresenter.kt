@@ -1,9 +1,14 @@
 package fiap.com.br.fiapapp.presenter
 
 import android.util.Log
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TableLayout
+import android.widget.TableRow
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import fiap.com.br.fiapapp.R
 import fiap.com.br.fiapapp.model.*
 import fiap.com.br.fiapapp.presenter.interfaces.FilialContrato
 import fiap.com.br.fiapapp.view.Lista
@@ -37,6 +42,23 @@ class FilialPresenter: FilialContrato.FilialPresenter {
             .addOnFailureListener { e ->
                 Log.e("Carga Combo Filiais", "onFailure()", e)
                 view?.demonstrarMsgErro("Erro ao carregar as Filiais")
+            }
+
+    }
+
+    override fun obtemTodasFiliais() {
+        var filiais: ArrayList<Empresa> = ArrayList()
+        db = FirebaseFirestore.getInstance().collection("empresa")
+        db.get()
+            .addOnSuccessListener { document ->
+                for (doc in document) {
+                    var filial = doc.toObject(Empresa::class.java);
+                    filiais.add(filial)
+                }
+                view?.carregarFiliais(filiais)
+            }
+            .addOnFailureListener { e ->
+                Log.e("Carga Combo Filiais", "onFailure()", e)
             }
 
     }

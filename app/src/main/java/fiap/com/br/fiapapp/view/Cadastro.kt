@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.drawable.toDrawable
 import fiap.com.br.fiapapp.R
 import fiap.com.br.fiapapp.model.Cor
+import fiap.com.br.fiapapp.model.Empresa
 import fiap.com.br.fiapapp.model.Modelo
 import fiap.com.br.fiapapp.model.Veiculo
 import fiap.com.br.fiapapp.presenter.*
@@ -72,7 +73,7 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastro)
 
-        val btnMenu = findViewById<Button>(R.id.btnMenu)
+        val btnMenu = findViewById<ImageButton>(R.id.btnMenu)
         btnMenu.setOnClickListener {
             val intent = Intent(this, Menu::class.java)
             startActivity(intent)
@@ -292,6 +293,14 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
         }
     }
 
+    override fun carregarModelos(filiais: ArrayList<Modelo>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun carregarFiliais(filiais: ArrayList<Empresa>) {
+        TODO("Not yet implemented")
+    }
+
     override fun demonstrarListaVeiculos(veiculos: ArrayList<Veiculo>) {
         TODO("Not yet implemented")
     }
@@ -319,6 +328,10 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
                 .show()
 
         }
+    }
+
+    override fun carregarVeiculos(veiculos: ArrayList<Veiculo>) {
+        TODO("Not yet implemented")
     }
 
     @RequiresApi(Build.VERSION_CODES.N)

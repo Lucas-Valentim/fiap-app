@@ -23,37 +23,21 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
         this.view = view
     }
 
-    override fun obterListaVeiculos(veiculo: Veiculo): Query {
-
+    override fun obterListaVeiculos() {
+        var veiculos: ArrayList<Veiculo> = ArrayList()
         db = FirebaseFirestore.getInstance().collection("veiculo");
-        var qry = db.whereGreaterThan("cod_veiculo", -1);
-
-        if (veiculo.ano != null && veiculo.ano!! > 0) {
-            qry = qry.whereEqualTo("ano", veiculo.ano);
-        }
-        if (veiculo.cod_cor != null && veiculo.cod_cor!! > 0) {
-            qry = qry.whereEqualTo("cod_cor", veiculo.cod_cor);
-        }
-        if (veiculo.filial != null && veiculo.filial!! > 0) {
-            qry = qry.whereEqualTo("filial", veiculo.cnpj);
-        }
-        if (veiculo.cod_modelo != null && veiculo.cod_modelo!! > 0) {
-            qry = qry.whereEqualTo("cod_modelo", veiculo.cod_modelo);
-        }
-        if (veiculo.cod_marca != null && veiculo.cod_marca!! > 0) {
-            qry = qry.whereEqualTo("cod_marca", veiculo.cod_marca);
-        }
-        if (veiculo.placa != null && !veiculo.placa.isNullOrEmpty()) {
-            qry = qry.whereEqualTo("placa", veiculo.placa);
-        }
-        if (veiculo.valor != null && veiculo.valor!! > 0.00) {
-            qry = qry.whereEqualTo("valor", veiculo.valor);
-        }
-        if (veiculo.km != null && veiculo.km!! > 0) {
-            qry = qry.whereEqualTo("km", veiculo.km);
-        }
-
-        return qry;
+        db.get()
+            .addOnSuccessListener { document ->
+                for (doc in document) {
+                    var veic = doc.toObject(Veiculo::class.java);
+                    veic.id = doc.id;
+                    veiculos.add(veic)
+                }
+                view?.carregarVeiculos(veiculos)
+            }
+            .addOnFailureListener { e ->
+                Log.e("Carga Combo Filiais", "onFailure()", e)
+            }
     }
 
     override fun obterVeiculo(idDoc: String) {

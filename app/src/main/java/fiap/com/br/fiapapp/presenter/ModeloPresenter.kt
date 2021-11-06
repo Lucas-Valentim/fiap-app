@@ -60,6 +60,22 @@ class ModeloPresenter: ModeloContrato.ModeloPresenter {
          }
     }
 
+    override fun obtemTodosModelos() {
+        var modelos: ArrayList<Modelo> = ArrayList()
+        db = FirebaseFirestore.getInstance().collection("modelo_veiculo")
+        db.get()
+            .addOnSuccessListener { document ->
+                for (doc in document) {
+                    var modelo = doc.toObject(Modelo::class.java);
+                    modelos.add(modelo)
+                }
+                view?.carregarModelos(modelos)
+            }
+            .addOnFailureListener { e ->
+                Log.e("Carga Combo Filiais", "onFailure()", e)
+            }
+    }
+
     override fun obtemModeloPorNome(Nome: String) : Int? {
         var idModelo = -1
         db = FirebaseFirestore.getInstance().collection("modelo_veiculo")
