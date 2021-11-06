@@ -151,7 +151,7 @@ class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView, FilialContrato.F
         paramsFilial.height = labelFilial.height
         colFilial.gravity = Gravity.CENTER_VERTICAL
         colFilial.setLayoutParams(paramsFilial)
-        val razaoSocial = listaFiliais.filter { fil -> fil.cod_empresa == veic.filial }.firstOrNull()?.razao_social
+        val razaoSocial = listaFiliais.filter { fil -> fil.cnpj == veic.cnpj }.firstOrNull()?.razao_social
         colFilial.setText(razaoSocial)
 
         var colValor = TextView(this)
@@ -235,8 +235,6 @@ class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView, FilialContrato.F
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
         progressBar.visibility = View.INVISIBLE
         var toast = Toast.makeText(this, msg, Toast.LENGTH_LONG)
-        var toastView = toast.view
-        toastView?.setBackgroundResource(R.color.defaultRedSec)
         toast.show()
         presenterVeiculo.obterListaVeiculos();
     }
