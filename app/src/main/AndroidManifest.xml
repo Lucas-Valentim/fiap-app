@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FiapApp">
         <activity
+            android:name=".view.Alteracao"
+            android:exported="false" />
+        <activity
             android:name=".view.ListaVeiculo"
             android:exported="false" />
         <activity

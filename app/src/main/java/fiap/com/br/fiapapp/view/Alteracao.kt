@@ -1,31 +1,21 @@
 package fiap.com.br.fiapapp.view
 
-import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
-import android.icu.text.SimpleDateFormat
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.*
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.isEmpty
 import fiap.com.br.fiapapp.R
+import fiap.com.br.fiapapp.model.*
 import fiap.com.br.fiapapp.presenter.*
 import fiap.com.br.fiapapp.presenter.interfaces.*
-import java.util.*
-import kotlin.collections.ArrayList
-import fiap.com.br.fiapapp.MascaraFormat
-import fiap.com.br.fiapapp.model.*
 
-class Cadastro: AppCompatActivity(), VeiculoContrato.VeiculoView , MarcaContrato.ListaMarcaView,
-ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
-
+class Alteracao : AppCompatActivity(), VeiculoContrato.VeiculoView, MarcaContrato.ListaMarcaView,
+    ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
 
     private var presenterMarca: MarcaContrato.ListaMarcaPresenter = MarcaPresenter(this)
     private var presenterModelo: ModeloContrato.ModeloPresenter = ModeloPresenter(this)
@@ -48,34 +38,18 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
     private lateinit var etnValor: EditText
     private lateinit var etxPlaca: EditText
     private lateinit var etmDetalhes: EditText
-    private lateinit var btnLimpar: Button
-
-    private var codCor: Int = 0
-    private var codModelo: Int = 0
-    private var codMarca: Int = 0
-
-    private var nomeModelo: String = ""
-    private var nomeMarca: String = ""
-    private var nomeCor: String = ""
-    private var razaoSocial: String = ""
-    private lateinit var textArray: List<String>
-    private var ano: String = ""
-    private var km: String = ""
-    private var valor: String = ""
-    private var placa: String = ""
-    private var detalhes: String = ""
 
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cadastro)
+        setContentView(R.layout.activity_alteracao)
+
+        val idVeiculo = intent.getStringExtra("idVeiculo");
 
         val btnMenu = findViewById<Button>(R.id.btnMenu)
+
         btnMenu.setOnClickListener {
             val intent = Intent(this, Menu::class.java)
-//            val intent = Intent(this, Alteracao::class.java)
-//            intent.putExtra("idVeiculo", "15g91F8PL3D8LZIsfQRA")
             startActivity(intent)
         }
 
@@ -89,12 +63,55 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
         etnValor = findViewById<EditText>(R.id.etnValor)
         etxPlaca = findViewById<EditText>(R.id.etxPlaca)
         etmDetalhes = findViewById<EditText>(R.id.etmDetalhes)
-        btnLimpar = findViewById<Button>(R.id.btnLimpar)
 
+        presenterVeiculo.obterVeiculo(idVeiculo.toString())
         presenterMarca.obtemMarca()
         presenterCor.obtemCor()
         presenterFilial.obtemRazaoSocial()
 
+        btnSalvar.setOnClickListener {
+
+            var marca = cmbMarca.selectedItem.toString()
+
+            var nomeModelo = ""
+            if (!cmbModelo.isEmpty()) {
+               nomeModelo = cmbModelo?.selectedItem.toString()
+            }
+
+            var nomeCor = cmbCor.selectedItem.toString()
+            var razaoSocial = cmbFilial.selectedItem.toString()
+
+            var ano = dtaAno.text.toString()
+            if (ano.isEmpty()){ano = "0"}
+
+            var km = etnKm.text.toString()
+            if (km.isEmpty()){km = "0"}
+
+            var valor = etnValor.text.toString()
+            if (valor.isEmpty()){valor = "0"}
+
+            var placa = etxPlaca.text.toString()
+            var detalhes = etmDetalhes.text.toString()
+
+            var msgValidacao = presenterVeiculo.validaDadosVeiculo(marca, nomeModelo, nomeCor, razaoSocial, ano, km, valor, placa)
+
+            if (msgValidacao.isNotEmpty()){
+
+                Toast.makeText(this, msgValidacao, Toast.LENGTH_SHORT).show()
+            }else {
+                presenterVeiculo.alterarVeiculo(
+                    idVeiculo.toString(),
+                    nomeModelo,
+                    nomeCor,
+                    razaoSocial,
+                    km.toInt(),
+                    valor.toDouble(),
+                    placa.toString(),
+                    detalhes.toString(),
+                    ano.toInt()
+                )
+            }
+        }
 
         //carregar a combo Modelo, a partir de uma marca selecionada
         cmbMarca.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -111,49 +128,42 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
             }
         }
 
-        btnSalvar.setOnClickListener {
 
-            nomeMarca = cmbMarca.selectedItem.toString()
+    }
 
-            if (cmbModelo.isEmpty()) {
-                nomeModelo = ""
-            }else {
-                nomeModelo = cmbModelo?.selectedItem.toString()
-            }
-            nomeCor = cmbCor.selectedItem.toString()
-            razaoSocial = cmbFilial.selectedItem.toString()
 
-            ano = dtaAno.text.toString()
-            if (ano.isEmpty()){ano = "0"}
+    private fun obterPosicao (sp: Spinner, text: String): Int{
+        var encontrado = false
+        var pos = 0
 
-            km = etnKm.text.toString()
-            if (km.isEmpty()){km = "0"}
+        while (!encontrado){
 
-            valor = etnValor.text.toString()
-            if (valor.isEmpty()){valor = "0"}
+            var itemSpinner = sp.getItemAtPosition(pos).toString()
 
-            placa = etxPlaca.text.toString()
-            detalhes = etmDetalhes.text.toString()
-
-            var msgValidacao = presenterVeiculo.validaDadosVeiculo(nomeMarca, nomeModelo, nomeCor, razaoSocial, ano, km, valor, placa )
-
-            if (msgValidacao.isNotEmpty()){
-
-                Toast.makeText(this, msgValidacao, Toast.LENGTH_SHORT).show()
+            if (text == itemSpinner ){
+                encontrado = true
             }else {
 
-                presenterVeiculo.cadastrarVeiculo(nomeMarca, nomeModelo, nomeCor, razaoSocial, km.toInt(),
-                                                  valor.toDouble(), placa, detalhes, ano.toInt() )
-
-                Limpar()
+                pos++
             }
-
 
         }
 
-        btnLimpar.setOnClickListener {
-            Limpar()
-        }
+        return pos
+
+    }
+
+    override fun demonstrarListaVeiculos(veiculos: ArrayList<Veiculo>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun demonstrarVeiculo( veiculo: Veiculo ) {
+
+        dtaAno.setText(veiculo.ano.toString())
+        etnKm.setText(veiculo.km.toString())
+        etnValor.setText(veiculo.valor.toString())
+        etxPlaca.setText(veiculo.placa.toString())
+        etmDetalhes.setText(veiculo.detalhes.toString())
 
     }
 
@@ -170,8 +180,7 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
     }
 
     override fun demonstrarCorSelecionada(codCor: Int, descricao: String) {
-        this.codCor = codCor
-
+        TODO("Not yet implemented")
     }
 
     override fun demonstraFiliais(filiais: ArrayList<String>) {
@@ -223,7 +232,20 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
     }
 
     override fun demonstrarModelosMarcaSel(modelos: ArrayList<String>, descrModeloSel: String) {
-        TODO("Not yet implemented")
+        spinnerArrayModelo = modelos
+        var adapterModelo = ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_spinner_dropdown_item,
+            spinnerArrayModelo
+        )
+        adapterModelo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        cmbModelo.adapter = adapterModelo
+
+        var posicao = obterPosicao(cmbModelo, descrModeloSel)
+        cmbModelo.setSelection(posicao)
+        adapterModelo.notifyDataSetChanged()
+
+
     }
 
     override fun demonstrarModeloSelecionado(codModelo: Int, descricao: String) {
@@ -231,76 +253,41 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
     }
 
     override fun demonstrarMsgErro(msg: String) {
-
         if (msg.isNotEmpty()) {
 
-            val alertDialog = AlertDialog.Builder(this)
-            alertDialog
-                .setTitle("Erro!")
-                .setIcon(R.drawable.alert.toDrawable())
-                .setMessage(msg)
-                .setCancelable(false)
-                .setPositiveButton(
-                    "ok",
-                    DialogInterface.OnClickListener { dialogInterface, i ->
-                        // Toast.makeText(this, "Aceite Usuario", Toast.LENGTH_SHORT).show()
-
-                        //Problema: Verificar como colocar o foco no campo que está inconsistente
-                    })
-                .show()
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
         }
     }
 
-    override fun demonstrarListaVeiculos(veiculos: ArrayList<Veiculo>) {
-        TODO("Not yet implemented")
-    }
-
-    override fun demonstrarVeiculo(veiculo: Veiculo) {
-        TODO("Not yet implemented")
-    }
-
     override fun demonstrarMsgSucesso(msg: String) {
-        if (msg.isNotEmpty()) {
 
-         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+        if (msg.isNotEmpty()) {
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun demonstrarModeloVeiculo(modelo: Modelo) {
-        TODO("Not yet implemented")
+
+        presenterModelo.obtemModeloMarcaSel(modelo.cod_marca, modelo.descricao)
+
     }
 
     override fun demonstrarMarcaVeiculo(marca: Marca) {
-        TODO("Not yet implemented")
+
+        var posicao = obterPosicao(cmbMarca, marca.descricao)
+        cmbMarca.setSelection(posicao)
+
     }
 
     override fun demonstrarCorVeiculo(cor: Cor) {
-        TODO("Not yet implemented")
+
+        var posicao = obterPosicao(cmbCor, cor.descricao)
+        cmbCor.setSelection(posicao)
+
     }
 
     override fun demonstrarFilialVeiculo(empresa: Empresa) {
-        TODO("Not yet implemented")
-    }
-
-
-    override fun onDestroy() {
-        presenterMarca.destruirView()
-        presenterModelo.destruirView()
-        presenterCor.destruirView()
-        presenterFilial.destruirView()
-        super.onDestroy()
-    }
-
-    private fun Limpar(){
-        dtaAno.text.clear()
-        etnKm.text.clear()
-        etnValor.text.clear()
-        etxPlaca.text.clear()
-        etmDetalhes.text.clear()
-        cmbCor.setSelection(0)
-        cmbFilial.setSelection(0)
-        cmbMarca.setSelection(0)
-        cmbModelo.setSelection(0)
-
+        var posicao = obterPosicao(cmbFilial, empresa.razao_social)
+        cmbFilial.setSelection(posicao)
     }
 }

@@ -41,6 +41,26 @@ class FilialPresenter: FilialContrato.FilialPresenter {
 
     }
 
+    override fun obtemRazaoSocial() {
+        db = FirebaseFirestore.getInstance().collection("empresa")
+        spinnerArrayList.add("Selecione")
+        db.get().addOnCompleteListener(OnCompleteListener {
+
+            for (dataObject in it.getResult()!!.documents){
+                var filial = dataObject.toObject(Empresa::class.java)!!
+                /*spinnerArrayList.add(filial.cnpj.toString() + "/" + filial.cidade +
+                        "/" + filial.estado + "/" + filial.razao_social)*/
+                spinnerArrayList.add(filial.razao_social)
+                Log.i("Carga Combo Filiais", filial.razao_social)
+            }
+            view?.demonstraRazaoSocial(spinnerArrayList)
+        })
+            .addOnFailureListener { e ->
+                Log.e("Carga Combo Filiais", "onFailure()", e)
+                view?.demonstrarMsgErro("Erro ao carregar as Filiais")
+            }
+    }
+
     override fun obtemFilialPorNome(Nome : String) : Int? {
         db = FirebaseFirestore.getInstance().collection("empresa")
         val doc = db.whereEqualTo("cidade", Nome).get();

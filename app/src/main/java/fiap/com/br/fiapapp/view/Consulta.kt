@@ -175,6 +175,10 @@ CorContrato.ListaCorView, FilialContrato.FilialView{
         adapterModelo.notifyDataSetChanged()
     }
 
+    override fun demonstrarModelosMarcaSel(modelos: ArrayList<String>, descrModeloSel: String) {
+        TODO("Not yet implemented")
+    }
+
     override fun demonstrarModeloSelecionado(codModelo: Int, descricao: String) {
         this.intent.putExtra("codModelo", codModelo)
         this.intent.putExtra("nomeModelo", descricao)
@@ -207,6 +211,10 @@ CorContrato.ListaCorView, FilialContrato.FilialView{
         //adapterFilial.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         //cmbFilial.adapter = adapterFilial
         //adapterFilial.notifyDataSetChanged()
+    }
+
+    override fun demonstraRazaoSocial(filiais: ArrayList<String>) {
+        TODO("Not yet implemented")
     }
 
     override fun demonstrarFilialSelecionada(codFilial: Int, razaoSocial: String) {

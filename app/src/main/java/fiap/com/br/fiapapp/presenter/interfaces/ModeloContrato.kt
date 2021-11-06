@@ -9,6 +9,7 @@ interface ModeloContrato {
 
     interface ModeloView{
         fun demonstraModelos(modelos: ArrayList<String>)
+        fun demonstrarModelosMarcaSel(modelos: ArrayList<String>, descrModeloSel: String)
         fun demonstrarModeloSelecionado (codModelo: Int, descricao: String)
         fun demonstrarMsgErro(msg: String)
 
@@ -16,6 +17,7 @@ interface ModeloContrato {
 
     interface ModeloPresenter{
         fun obtemModelo(codMarca: Int?)
+        fun obtemModeloMarcaSel(codMarca: Int?, descrModeloSel: String)
         fun obtemModeloPorNome(Nome: String) : Int?
         fun obtemDescricaoModeloPorCodigo(Codigo: Int?) : String?
         fun obterModeloSelecionado(descricao: String)

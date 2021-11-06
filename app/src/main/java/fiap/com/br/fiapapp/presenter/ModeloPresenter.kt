@@ -60,6 +60,47 @@ class ModeloPresenter: ModeloContrato.ModeloPresenter {
          }
     }
 
+    override fun obtemModeloMarcaSel(codMarca: Int?, descrModeloSel: String) {
+        spinnerArrayList.clear()
+        db = FirebaseFirestore.getInstance().collection("modelo_veiculo")
+        spinnerArrayList.add("Selecione");
+        if(codMarca != null) {
+            db.whereEqualTo("cod_marca", codMarca).get()
+                .addOnCompleteListener(OnCompleteListener {
+
+                    for (dataObject in it.getResult()!!.documents) {
+                        var modelo = dataObject.toObject(Modelo::class.java)!!
+                        Log.i("Consulta Modelos", modelo.descricao)
+                        spinnerArrayList.add(modelo.descricao)
+
+                    }
+                    view?.demonstrarModelosMarcaSel(spinnerArrayList, descrModeloSel)
+
+                })
+                .addOnFailureListener { e ->
+                    Log.e("Combo MOdelo", "onFailure()", e)
+                    view?.demonstrarMsgErro("Erro ao carregar os modelos disponíveis")
+                }
+        }
+        else{
+            db.get()
+                .addOnCompleteListener(OnCompleteListener {
+
+                    for (dataObject in it.getResult()!!.documents) {
+                        var modelo = dataObject.toObject(Modelo::class.java)!!
+                        Log.i("Consulta Modelos", modelo.descricao)
+                        spinnerArrayList.add(modelo.descricao)
+                        view?.demonstrarModelosMarcaSel(spinnerArrayList, descrModeloSel)
+                    }
+
+                })
+                .addOnFailureListener { e ->
+                    Log.e("Combo MOdelo", "onFailure()", e)
+                    view?.demonstrarMsgErro("Erro ao carregar os modelos disponíveis")
+                }
+        }
+    }
+
     override fun obtemModeloPorNome(Nome: String) : Int? {
         var idModelo = -1
         db = FirebaseFirestore.getInstance().collection("modelo_veiculo")

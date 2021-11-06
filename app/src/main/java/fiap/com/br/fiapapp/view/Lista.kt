@@ -12,7 +12,6 @@ import android.widget.*
 import kotlin.collections.ArrayList
 import android.view.ViewGroup
 import fiap.com.br.fiapapp.R
-import fiap.com.br.fiapapp.model.Veiculo
 import fiap.com.br.fiapapp.presenter.*
 import fiap.com.br.fiapapp.presenter.interfaces.FilialContrato
 import fiap.com.br.fiapapp.presenter.interfaces.ModeloContrato
@@ -21,6 +20,7 @@ import android.widget.LinearLayout
 import android.graphics.drawable.Drawable
 import android.os.Build
 import androidx.annotation.RequiresApi
+import fiap.com.br.fiapapp.model.*
 
 
 class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView, FilialContrato.FilialView, ModeloContrato.ModeloView {
@@ -212,11 +212,16 @@ class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView, FilialContrato.F
         TODO("Not yet implemented")
     }
 
-    override fun demonstrarVeiculo(veiculo: Veiculo) {
+    override fun demonstrarVeiculo(
+        veiculo: Veiculo) {
         TODO("Not yet implemented")
     }
 
     override fun demonstraFiliais(filiais: ArrayList<String>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun demonstraRazaoSocial(filiais: ArrayList<String>) {
         TODO("Not yet implemented")
     }
 
@@ -225,6 +230,10 @@ class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView, FilialContrato.F
     }
 
     override fun demonstraModelos(modelos: ArrayList<String>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun demonstrarModelosMarcaSel(modelos: ArrayList<String>, descrModeloSel: String) {
         TODO("Not yet implemented")
     }
 
@@ -237,6 +246,22 @@ class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView, FilialContrato.F
     }
 
     override fun demonstrarMsgSucesso(msg: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun demonstrarModeloVeiculo(modelo: Modelo) {
+        TODO("Not yet implemented")
+    }
+
+    override fun demonstrarMarcaVeiculo(marca: Marca) {
+        TODO("Not yet implemented")
+    }
+
+    override fun demonstrarCorVeiculo(cor: Cor) {
+        TODO("Not yet implemented")
+    }
+
+    override fun demonstrarFilialVeiculo(empresa: Empresa) {
         TODO("Not yet implemented")
     }
 }
