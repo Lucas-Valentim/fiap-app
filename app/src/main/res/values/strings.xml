@@ -35,6 +35,7 @@
     <string name="acao">Ação:</string>
     <string name="usuario">user_fiap@fiap.com.br</string>
     <string name="senhausuario">fiap123</string>
+    <string name="menu">Menu</string>
 
     <string-array name="marcas">
         <item>Audi</item>
