@@ -78,8 +78,6 @@ CorContrato.ListaCorView, FilialContrato.FilialView{
 
                 if (msg.isNotEmpty()) {
                     var toast = Toast.makeText(this, msg, Toast.LENGTH_LONG)
-                    var toastView = toast.view
-                    toastView?.setBackgroundResource(R.color.defaultRedSec)
                     toast.show()
                 } else {
 
