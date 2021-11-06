@@ -4,7 +4,6 @@ import java.math.BigInteger
 
 data class Veiculo (
     var id: String = "",
-    var cod_veiculo: Int? = -1,
     var cod_modelo: Int? = -1,
     var cod_marca: Int? = -1,
     var cod_cor: Int? = -1,
@@ -12,7 +11,6 @@ data class Veiculo (
     var km: Int? = -1,
     var valor: Double? = -1.00,
     var ano: Int? = -1,
-    var filial: Int? = -1,
     var placa: String? = "",
     var detalhes: String? = ""
 ){
