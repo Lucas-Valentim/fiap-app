@@ -16,6 +16,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.isEmpty
 import fiap.com.br.fiapapp.R
+import fiap.com.br.fiapapp.model.Cor
+import fiap.com.br.fiapapp.model.Empresa
+import fiap.com.br.fiapapp.model.Modelo
+import fiap.com.br.fiapapp.model.Veiculo
 import fiap.com.br.fiapapp.presenter.*
 import fiap.com.br.fiapapp.presenter.interfaces.*
 import java.util.*
@@ -59,11 +63,15 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
     private var nomeCor: String = ""
     private var razaoSocial: String = ""
     private lateinit var textArray: List<String>
+    private var cnpjEmpresa: String = ""
     private var ano: String = ""
     private var km: String = ""
     private var valor: String = ""
     private var placa: String = ""
     private var detalhes: String = ""
+
+    private final val ANO_INICIO = 1900
+
 
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -71,11 +79,9 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastro)
 
-        val btnMenu = findViewById<Button>(R.id.btnMenu)
+        val btnMenu = findViewById<ImageButton>(R.id.btnMenu)
         btnMenu.setOnClickListener {
             val intent = Intent(this, Menu::class.java)
-//            val intent = Intent(this, Alteracao::class.java)
-//            intent.putExtra("idVeiculo", "15g91F8PL3D8LZIsfQRA")
             startActivity(intent)
         }
 
@@ -93,6 +99,7 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
 
         presenterMarca.obtemMarca()
         presenterCor.obtemCor()
+        presenterFilial.obtemFilial()
         presenterFilial.obtemRazaoSocial()
 
 
@@ -249,6 +256,14 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
                     })
                 .show()
         }
+    }
+
+    override fun carregarModelos(filiais: ArrayList<Modelo>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun carregarFiliais(filiais: ArrayList<Empresa>) {
+        TODO("Not yet implemented")
     }
 
     override fun demonstrarListaVeiculos(veiculos: ArrayList<Veiculo>) {

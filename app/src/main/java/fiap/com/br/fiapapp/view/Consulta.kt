@@ -12,6 +12,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toDrawable
 import fiap.com.br.fiapapp.R
+import fiap.com.br.fiapapp.model.Empresa
+import fiap.com.br.fiapapp.model.Modelo
 import fiap.com.br.fiapapp.presenter.*
 import fiap.com.br.fiapapp.presenter.interfaces.CorContrato
 import fiap.com.br.fiapapp.presenter.interfaces.FilialContrato
@@ -47,7 +49,7 @@ CorContrato.ListaCorView, FilialContrato.FilialView{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_consulta)
 
-        val btnMenu = findViewById<Button>(R.id.btnMenu)
+        val btnMenu = findViewById<ImageButton>(R.id.btnMenu)
         btnMenu.setOnClickListener {
             val intent = Intent(this, Menu::class.java)
             startActivity(intent)
@@ -55,8 +57,6 @@ CorContrato.ListaCorView, FilialContrato.FilialView{
 
         cmbMarca = findViewById<Spinner>(R.id.cmbMarca)
         cmbModelo = findViewById<Spinner>(R.id.cmbModelo)
-        //cmbCor = findViewById<Spinner>(R.id.cmbCor)
-        //cmbFilial = findViewById<Spinner>(R.id.cmbFilial)
 
         val btnFiltrar = findViewById<Button>(R.id.btnFiltrar)
 
@@ -85,34 +85,31 @@ CorContrato.ListaCorView, FilialContrato.FilialView{
             btnFiltrar.setOnClickListener {
 
                 var msg = validaFiltro()
-                var teste = marcaSerlecionada;
 
                 if (msg.isNotEmpty()) {
+                    var toast = Toast.makeText(this, msg, Toast.LENGTH_LONG)
+                    var toastView = toast.view
+                    toastView?.setBackgroundResource(R.color.defaultRedSec)
+                    toast.show()
 
-                    val alertDialog = AlertDialog.Builder(this)
-                    alertDialog
-                        .setTitle("Aviso!")
-                        .setIcon(R.drawable.alert.toDrawable())
-                        .setMessage(msg)
-                        .setCancelable(false)
-                        .setPositiveButton(
-                            "ok",
-                            DialogInterface.OnClickListener { dialogInterface, i ->
+                    //val alertDialog = AlertDialog.Builder(this)
+                    //alertDialog
+                        //.setTitle("Aviso!")
+                        //.setIcon(R.drawable.alert.toDrawable())
+                        //.setMessage(msg)
+                        //.setCancelable(false)
+                        //.setPositiveButton(
+                            //"ok",
+                            //DialogInterface.OnClickListener { dialogInterface, i ->
                                 // Toast.makeText(this, "Aceite Usuario", Toast.LENGTH_SHORT).show()
-
                                 //Problema: Verificar como colocar o foco no campo que está inconsistente
-                            })
-                        .show()
+                            //})
+                        //.show()
                 } else {
 
                     cmbMarca = findViewById<Spinner>(R.id.cmbMarca)
                     cmbModelo = findViewById<Spinner>(R.id.cmbModelo)
-                    //cmbCor = findViewById<Spinner>(R.id.cmbCor)
-                    //cmbFilial = findViewById<Spinner>(R.id.cmbFilial)
                     val txtdtaAno = findViewById<EditText>(R.id.dtaAno)
-                    //val txtetnKm = findViewById<EditText>(R.id.etnKm)
-                    //val txtPlaca = findViewById<EditText>(R.id.etnPlaca)
-                    //val txtValor = findViewById<EditText>(R.id.etnValor)
 
                     intent = Intent(this, Lista::class.java)
 
@@ -124,32 +121,11 @@ CorContrato.ListaCorView, FilialContrato.FilialView{
                         var modelo = presenterModelo.obtemModeloPorNome(cmbModelo.selectedItem.toString())
                         intent.putExtra("modelo", modelo)
                     }
-                    /*if(!cmbCor.selectedItem.toString().isNullOrEmpty() && cmbCor.selectedItem.toString() != "Selecione" ){
-                        var cor = presenterCor.obtemCorPorNome(cmbCor.selectedItem.toString())
-                        intent.putExtra("cor", cor)
-                    }
-                    if(!cmbFilial.selectedItem.toString().isNullOrEmpty() && cmbFilial.selectedItem.toString() != "Selecione" ){
-                        var filial = presenterFilial.obtemFilialPorNome(cmbFilial.selectedItem.toString())
-                        intent.putExtra("filial", filial)
-                    }*/
                     if(!txtdtaAno.text.isNullOrEmpty()){
                         intent.putExtra("ano", txtdtaAno.text.toString().toInt())
                     }
-                    /*if(!txtetnKm.text.isNullOrEmpty()){
-                        intent.putExtra("km", txtetnKm.text.toString().toInt())
-                    }
-                    if(!txtPlaca.text.isNullOrEmpty()){
-                        intent.putExtra("placa", txtPlaca.text.toString())
-                    }
-                    if(!txtValor.text.isNullOrEmpty()){
-                        intent.putExtra("valor", txtValor.text.toString().toDouble())
-                    }*/
 
                     startActivity(intent)
-                    /*if (cmbModelo.selectedItem != null){
-                        var nomeModelo = cmbModelo.selectedItem.toString()
-                        presenterModelo.obterModeloSelecionado(nomeModelo)
-                    }*/
 
                     }
 
@@ -226,6 +202,14 @@ CorContrato.ListaCorView, FilialContrato.FilialView{
     override fun demonstrarMsgErro(msg: String) {
         TODO("Not yet implemented")
         //implementar poup-up de erro
+    }
+
+    override fun carregarModelos(filiais: ArrayList<Modelo>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun carregarFiliais(filiais: ArrayList<Empresa>) {
+        TODO("Not yet implemented")
     }
 
 

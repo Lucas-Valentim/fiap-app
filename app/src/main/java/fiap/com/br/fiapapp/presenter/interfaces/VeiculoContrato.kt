@@ -16,12 +16,13 @@ interface VeiculoContrato {
         fun demonstrarMarcaVeiculo(marca: Marca)
         fun demonstrarCorVeiculo(cor: Cor)
         fun demonstrarFilialVeiculo (empresa: Empresa)
+        fun carregarVeiculos(veiculos: ArrayList<Veiculo>)
 
     }
 
     interface VeiculoPresenter{
         //Lista todos os veículos cadastrados
-        fun obterListaVeiculos(veiculo: Veiculo): Query
+        fun obterListaVeiculos()
 
         //Lista um veículo pela chave
         fun obterVeiculo(idDoc: String)

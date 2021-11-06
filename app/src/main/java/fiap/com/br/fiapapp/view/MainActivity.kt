@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         var btnentrar = findViewById<Button>(R.id.btn_entrar)
         var editemail = findViewById<EditText>(R.id.edit_email)
         var editsenha = findViewById<EditText>(R.id.edit_senha)
@@ -33,11 +32,7 @@ class MainActivity : AppCompatActivity(){
 
             auth.signInWithEmailAndPassword(email, senha)
                 .addOnSuccessListener {
-
                     startActivity(Intent(this, Menu::class.java))
-
-                    Log.i("Teste", "Funcionou - botão entrar")
-
                 }
                 .addOnFailureListener {
                     Toast.makeText(baseContext, "Authentication failed.",
@@ -49,8 +44,6 @@ class MainActivity : AppCompatActivity(){
         textNovaConta.setOnClickListener {
             val intent = Intent(this, Registro::class.java)
             startActivity(intent)
-
-            Log.i("Teste", "Funcionou - link nova conta")
         }
 
         }
