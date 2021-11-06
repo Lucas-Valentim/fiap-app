@@ -54,7 +54,7 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
 
         docRef.get()
               .addOnSuccessListener { documents ->
-              veiculo.placa = documents.data?.get("placa") as String
+              veiculo.placa = documents.data?.get("placa").toString()
               var valorVeic = documents.data?.get("valor").toString()
               veiculo.valor = valorVeic.toDouble()
               Log.i("cod_modelo", documents.data?.get("cod_modelo").toString())
@@ -165,6 +165,7 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
                     Log.i("MOdelo Alteração2", modelo.descricao)
 
                     veiculo.cod_modelo = modelo.cod_modelo
+                    veiculo.cod_marca = modelo.cod_marca
                 }
 
                         var dbCor = FirebaseFirestore.getInstance().collection("cor_veiculo");

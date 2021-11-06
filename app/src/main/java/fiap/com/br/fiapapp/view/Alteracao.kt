@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.core.view.isEmpty
+import com.google.firebase.firestore.FirebaseFirestore
 import fiap.com.br.fiapapp.R
 import fiap.com.br.fiapapp.model.*
 import fiap.com.br.fiapapp.presenter.*
@@ -14,6 +15,7 @@ import fiap.com.br.fiapapp.presenter.interfaces.*
 class Alteracao : AppCompatActivity(), VeiculoContrato.VeiculoView, MarcaContrato.ListaMarcaView,
     ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
 
+   // private lateinit var firebaseFirestore: FirebaseFirestore
     private var presenterMarca: MarcaContrato.ListaMarcaPresenter = MarcaPresenter(this)
     private var presenterModelo: ModeloContrato.ModeloPresenter = ModeloPresenter(this)
     private var presenterCor: CorContrato.ListaCorPresenter = CorPresenter(this)
@@ -41,7 +43,7 @@ class Alteracao : AppCompatActivity(), VeiculoContrato.VeiculoView, MarcaContrat
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alteracao)
 
-        val idVeiculo = intent.getStringExtra("idVeiculo");
+        val idVeiculo = intent.getStringExtra("idDocumento");
 
         val btnMenu = findViewById<Button>(R.id.btnMenu)
 
@@ -226,6 +228,9 @@ class Alteracao : AppCompatActivity(), VeiculoContrato.VeiculoView, MarcaContrat
         var posicao = obterPosicao(cmbModelo, descrModeloSel)
         cmbModelo.setSelection(posicao)
         adapterModelo.notifyDataSetChanged()
+        cmbModelo.setSelection(posicao)
+
+
 
 
     }
@@ -279,5 +284,14 @@ class Alteracao : AppCompatActivity(), VeiculoContrato.VeiculoView, MarcaContrat
 
     override fun carregarVeiculos(veiculos: ArrayList<Veiculo>) {
         TODO("Not yet implemented")
+    }
+
+    override fun onDestroy() {
+        presenterMarca.destruirView()
+        presenterModelo.destruirView()
+        presenterCor.destruirView()
+        presenterFilial.destruirView()
+        presenterVeiculo.destruirView()
+        super.onDestroy()
     }
 }

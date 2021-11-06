@@ -9,21 +9,24 @@ import fiap.com.br.fiapapp.model.*
 import fiap.com.br.fiapapp.presenter.interfaces.CorContrato
 import kotlin.collections.ArrayList
 
-class CorPresenter: CorContrato.ListaCorPresenter {
+open class CorPresenter: CorContrato.ListaCorPresenter {
 
     private var view: CorContrato.ListaCorView?
+    private lateinit var firebaseFirestore: FirebaseFirestore
     private lateinit var db: CollectionReference
     private var spinnerArrayList = ArrayList<String>()
 
     constructor(view: CorContrato.ListaCorView){
         this.view = view
+       // this.firebaseFirestore = firebaseFirestore
     }
 
     override fun obtemCor() {
-
-        db = FirebaseFirestore.getInstance().collection("cor_veiculo")
+        var spinnerArrayList = ArrayList<String>()
         spinnerArrayList.add("Selecione")
-        db.get().addOnCompleteListener(OnCompleteListener {
+
+        var db = FirebaseFirestore.getInstance().collection("cor_veiculo").get()
+            .addOnCompleteListener(OnCompleteListener {
 
             for (dataObject in it.getResult()!!.documents){
                 var cor = dataObject.toObject(Cor::class.java)!!

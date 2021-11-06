@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.isEmpty
+import com.google.firebase.firestore.FirebaseFirestore
 import fiap.com.br.fiapapp.R
 import fiap.com.br.fiapapp.model.Cor
 import fiap.com.br.fiapapp.model.Empresa
@@ -24,7 +25,7 @@ import fiap.com.br.fiapapp.model.*
 class Cadastro: AppCompatActivity(), VeiculoContrato.VeiculoView , MarcaContrato.ListaMarcaView,
 ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
 
-
+    //private lateinit var firebaseFirestore: FirebaseFirestore
     private var presenterMarca: MarcaContrato.ListaMarcaPresenter = MarcaPresenter(this)
     private var presenterModelo: ModeloContrato.ModeloPresenter = ModeloPresenter(this)
     private var presenterCor: CorContrato.ListaCorPresenter = CorPresenter(this)

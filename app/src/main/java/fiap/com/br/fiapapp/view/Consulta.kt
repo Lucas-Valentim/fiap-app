@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.firestore.FirebaseFirestore
 import fiap.com.br.fiapapp.R
 import fiap.com.br.fiapapp.model.Empresa
 import fiap.com.br.fiapapp.model.Modelo
@@ -21,6 +22,7 @@ import fiap.com.br.fiapapp.presenter.interfaces.ModeloContrato
 class Consulta : AppCompatActivity(), MarcaContrato.ListaMarcaView, ModeloContrato.ModeloView,
 CorContrato.ListaCorView, FilialContrato.FilialView{
 
+    //private lateinit var firebaseFirestore: FirebaseFirestore
     private var presenterMarca: MarcaContrato.ListaMarcaPresenter = MarcaPresenter(this)
     private var presenterModelo: ModeloContrato.ModeloPresenter = ModeloPresenter(this)
     private var presenterCor: CorContrato.ListaCorPresenter = CorPresenter(this)

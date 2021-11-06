@@ -9,13 +9,19 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
 import fiap.com.br.fiapapp.R
+import fiap.com.br.fiapapp.presenter.LoginPresenter
+import fiap.com.br.fiapapp.presenter.interfaces.LoginContrato
 
-class Registro : AppCompatActivity() {
+class Registro : AppCompatActivity(), LoginContrato.AutenticaView {
+
+    var auth = Firebase.auth
+    private var presenterLogin: LoginContrato.AutenticaPresenter = LoginPresenter(this, auth)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,22 +53,17 @@ class Registro : AppCompatActivity() {
             val email = editemail.text.toString()
             val senha = editsenha.text.toString()
 
-            auth.createUserWithEmailAndPassword(email, senha).addOnSuccessListener {
-                val currentUser = auth.currentUser
-                val userProfileChangeRequest = UserProfileChangeRequest.Builder().setDisplayName(nomeUsuario).build()
-                currentUser!!.updateProfile(userProfileChangeRequest).addOnCompleteListener {
+            presenterLogin.AutenticarUsuario(email, senha)
 
-                    startActivity(Intent(this, Menu::class.java))
-
-                }
-
-            }
-
-                .addOnFailureListener {
-                    Toast.makeText(baseContext, "Falha na Autenticação do usuário.",
-                        Toast.LENGTH_SHORT).show()
-                }
         }
 
+    }
+
+    override fun demonstrarUsuarioLogado(user: FirebaseUser?) {
+        startActivity(Intent(this, Menu::class.java))
+    }
+
+    override fun demonstrarMsgErro(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 }

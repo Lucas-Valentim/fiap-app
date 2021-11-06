@@ -173,7 +173,7 @@ class Lista : AppCompatActivity(), VeiculoContrato.VeiculoView, FilialContrato.F
         colAcaoEdit.setImageResource(R.drawable.edit_icon)
 
         colAcaoEdit.setOnClickListener{
-            val intent = Intent(this, Cadastro::class.java)
+            val intent = Intent(this, Alteracao::class.java)
             intent.putExtra("idDocumento", veic.id)
             startActivity(intent)
         }
