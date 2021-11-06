@@ -213,20 +213,8 @@ ModeloContrato.ModeloView, CorContrato.ListaCorView, FilialContrato.FilialView {
 
     override fun demonstrarMsgErro(msg: String) {
 
-        if (msg.isNotEmpty()) {
-
-            val alertDialog = AlertDialog.Builder(this)
-            alertDialog
-                .setTitle("Erro!")
-                .setIcon(R.drawable.alert.toDrawable())
-                .setMessage(msg)
-                .setCancelable(false)
-                .setPositiveButton(
-                    "ok",
-                    DialogInterface.OnClickListener { dialogInterface, i ->
-                    })
-                .show()
-        }
+        var toast = Toast.makeText(this, msg, Toast.LENGTH_LONG)
+        toast.show()
     }
 
     override fun carregarModelos(modelos: ArrayList<Modelo>) {
