@@ -26,12 +26,10 @@ class FilialPresenter: FilialContrato.FilialPresenter {
             for (dataObject in it.getResult()!!.documents){
                 var filial = dataObject.toObject(Empresa::class.java)!!
                 spinnerArrayList.add(filial.razao_social)
-                Log.i("Carga Combo Filiais", filial.razao_social)
             }
             view?.demonstraRazaoSocial(spinnerArrayList)
         })
-            .addOnFailureListener { e ->
-                Log.e("Carga Combo Filiais", "onFailure()", e)
+            .addOnFailureListener { _ ->
                 view?.demonstrarMsgErro("Erro ao carregar as Filiais")
             }
     }
@@ -47,8 +45,7 @@ class FilialPresenter: FilialContrato.FilialPresenter {
                 }
                 view?.carregarFiliais(filiais)
             }
-            .addOnFailureListener { e ->
-                Log.e("Carga Combo Filiais", "onFailure()", e)
+            .addOnFailureListener { _ ->
             }
 
     }

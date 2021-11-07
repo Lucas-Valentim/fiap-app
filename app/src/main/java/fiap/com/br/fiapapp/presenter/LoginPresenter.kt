@@ -14,7 +14,7 @@ import fiap.com.br.fiapapp.view.Menu
 class LoginPresenter: LoginContrato.AutenticaPresenter{
 
     //private var auth = Firebase.auth
-    private lateinit var auth: FirebaseAuth
+    private var auth: FirebaseAuth
     private var nomeUsuario: String = ""
     private var view: LoginContrato.AutenticaView?
 

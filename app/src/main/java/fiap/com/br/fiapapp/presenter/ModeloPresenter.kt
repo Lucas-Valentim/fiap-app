@@ -29,14 +29,12 @@ class ModeloPresenter: ModeloContrato.ModeloPresenter {
 
                      for (dataObject in it.getResult()!!.documents) {
                          var modelo = dataObject.toObject(Modelo::class.java)!!
-                         Log.i("Consulta Modelos", modelo.descricao)
                          spinnerArrayList.add(modelo.descricao)
                          view?.demonstraModelos(spinnerArrayList)
                      }
 
                  })
-                 .addOnFailureListener { e ->
-                     Log.e("Combo MOdelo", "onFailure()", e)
+                 .addOnFailureListener { _ ->
                      view?.demonstrarMsgErro("Erro ao carregar os modelos disponíveis")
                  }
          }
@@ -46,14 +44,12 @@ class ModeloPresenter: ModeloContrato.ModeloPresenter {
 
                      for (dataObject in it.getResult()!!.documents) {
                          var modelo = dataObject.toObject(Modelo::class.java)!!
-                         Log.i("Consulta Modelos", modelo.descricao)
                          spinnerArrayList.add(modelo.descricao)
                          view?.demonstraModelos(spinnerArrayList)
                      }
 
                  })
-                 .addOnFailureListener { e ->
-                     Log.e("Combo MOdelo", "onFailure()", e)
+                 .addOnFailureListener { _ ->
                      view?.demonstrarMsgErro("Erro ao carregar os modelos disponíveis")
                  }
          }
@@ -69,15 +65,13 @@ class ModeloPresenter: ModeloContrato.ModeloPresenter {
 
                     for (dataObject in it.getResult()!!.documents) {
                         var modelo = dataObject.toObject(Modelo::class.java)!!
-                        Log.i("Consulta Modelos", modelo.descricao)
                         spinnerArrayList.add(modelo.descricao)
 
                     }
                     view?.demonstrarModelosMarcaSel(spinnerArrayList, descrModeloSel)
 
                 })
-                .addOnFailureListener { e ->
-                    Log.e("Combo MOdelo", "onFailure()", e)
+                .addOnFailureListener { _ ->
                     view?.demonstrarMsgErro("Erro ao carregar os modelos disponíveis")
                 }
         }
@@ -87,14 +81,12 @@ class ModeloPresenter: ModeloContrato.ModeloPresenter {
 
                     for (dataObject in it.getResult()!!.documents) {
                         var modelo = dataObject.toObject(Modelo::class.java)!!
-                        Log.i("Consulta Modelos", modelo.descricao)
                         spinnerArrayList.add(modelo.descricao)
                         view?.demonstrarModelosMarcaSel(spinnerArrayList, descrModeloSel)
                     }
 
                 })
-                .addOnFailureListener { e ->
-                    Log.e("Combo MOdelo", "onFailure()", e)
+                .addOnFailureListener { _ ->
                     view?.demonstrarMsgErro("Erro ao carregar os modelos disponíveis")
                 }
         }
@@ -111,8 +103,7 @@ class ModeloPresenter: ModeloContrato.ModeloPresenter {
                 }
                 view?.carregarModelos(modelos)
             }
-            .addOnFailureListener { e ->
-                Log.e("Carga Combo Filiais", "onFailure()", e)
+            .addOnFailureListener { _ ->
             }
     }
 

@@ -13,9 +13,6 @@
             android:name=".view.Alteracao"
             android:exported="false" />
         <activity
-            android:name=".view.ListaVeiculo"
-            android:exported="false" />
-        <activity
             android:name=".view.Lista"
             android:exported="true" />
         <activity

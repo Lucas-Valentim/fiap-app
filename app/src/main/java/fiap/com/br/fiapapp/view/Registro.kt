@@ -27,13 +27,11 @@ class Registro : AppCompatActivity(), LoginContrato.AutenticaView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro)
 
-        var nome = findViewById<EditText>(R.id.editNome)
         var editemail = findViewById<EditText>(R.id.editEmail)
         var editsenha = findViewById<EditText>(R.id.editSenha)
         var btncadastrar = findViewById<Button>(R.id.btnCadastrar)
         var btnfoto = findViewById<Button>(R.id.btnFoto)
         var ivfoto  = findViewById<CircleImageView>(R.id.iVFoto)
-        var auth = Firebase.auth
 
 
         val loadImage = registerForActivityResult(ActivityResultContracts.GetContent(),
@@ -42,14 +40,12 @@ class Registro : AppCompatActivity(), LoginContrato.AutenticaView {
             })
 
         btnfoto.setOnClickListener {
-            Log.i("Teste", "Entrou no click do botão")
             loadImage.launch("image/*")
         }
 
 
         btncadastrar.setOnClickListener {
 
-            val nomeUsuario =  nome.text.toString()
             val email = editemail.text.toString()
             val senha = editsenha.text.toString()
 

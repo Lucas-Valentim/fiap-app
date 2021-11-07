@@ -25,18 +25,16 @@ open class CorPresenter: CorContrato.ListaCorPresenter {
         var spinnerArrayList = ArrayList<String>()
         spinnerArrayList.add("Selecione")
 
-        var db = FirebaseFirestore.getInstance().collection("cor_veiculo").get()
+        FirebaseFirestore.getInstance().collection("cor_veiculo").get()
             .addOnCompleteListener(OnCompleteListener {
 
             for (dataObject in it.getResult()!!.documents){
                 var cor = dataObject.toObject(Cor::class.java)!!
                 spinnerArrayList.add(cor.descricao)
-                Log.i("Carga Combo Marca", cor.descricao.toString())
             }
             view?.demonstraCores(spinnerArrayList)
         })
-            .addOnFailureListener { e ->
-                Log.e("Carga Combo Cores", "onFailure()", e)
+            .addOnFailureListener { _ ->
                 view?.demonstrarMsgErro("Erro ao carregas as cores disponíveis")
             }
 
@@ -52,14 +50,12 @@ open class CorPresenter: CorContrato.ListaCorPresenter {
 
                 for (dataObject in it.getResult()!!.documents){
                     cor = dataObject.toObject(Cor::class.java)!!
-                    Log.i("Consulta Codigo Cor", cor.cod_cor.toString())
                     view?.demonstrarCorSelecionada(cor.cod_cor, cor.descricao)
 
                 }
             })
             .addOnFailureListener {
-                    e -> Log.e("Combo Cor", "onFailure()", e)
-
+                    _ ->
             }
 
     }

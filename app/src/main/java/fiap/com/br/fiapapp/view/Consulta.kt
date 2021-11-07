@@ -68,7 +68,6 @@ CorContrato.ListaCorView, FilialContrato.FilialView{
 
                 var descricaoMarca = spinnerArrayMarca[p2]
                 presenterMarca.obterMarcaSelecionada(descricaoMarca)
-                Log.i("Codigo da Marca", marcaSerlecionada.toString())
 
              }
         }

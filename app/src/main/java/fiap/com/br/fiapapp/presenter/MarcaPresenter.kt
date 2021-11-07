@@ -27,12 +27,10 @@ class MarcaPresenter: MarcaContrato.ListaMarcaPresenter {
             for (dataObject in it.getResult()!!.documents){
                 var marca = dataObject.toObject(Marca::class.java)!!
                 spinnerArrayList.add(marca.descricao)
-                Log.i("Carga Combo Marca", marca.descricao)
             }
             view?.demonstraMarcas(spinnerArrayList)
         })
-            .addOnFailureListener { e ->
-                Log.e("Carga Combo Marca", "onFailure()", e)
+            .addOnFailureListener { _ ->
                 view?.demonstrarMsgErro("Erro ao carregas as marcas disponíveis")
             }
     }
@@ -62,13 +60,11 @@ class MarcaPresenter: MarcaContrato.ListaMarcaPresenter {
 
                 for (dataObject in it.getResult()!!.documents){
                     marca = dataObject.toObject(Marca::class.java)!!
-                    Log.i("Consulta Codigo Marca", marca.codmarca.toString())
                     view?.demonstrarMarcaSelecionada(marca.codmarca, marca.descricao)
 
                 }
             })
             .addOnFailureListener {
-                    e -> Log.e("Combo MOdelo", "onFailure()", e)
 
             }
     }

@@ -36,8 +36,7 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
                 }
                 view?.carregarVeiculos(veiculos)
             }
-            .addOnFailureListener { e ->
-                Log.e("Carga Combo Filiais", "onFailure()", e)
+            .addOnFailureListener { _ ->
             }
     }
 
@@ -57,7 +56,6 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
               veiculo.placa = documents.data?.get("placa").toString()
               var valorVeic = documents.data?.get("valor").toString()
               veiculo.valor = valorVeic.toDouble()
-              Log.i("cod_modelo", documents.data?.get("cod_modelo").toString())
                var codMod =   documents.data?.get("cod_modelo").toString()
               veiculo.cod_modelo = codMod.toInt()
               var codCorVeic =  documents.data?.get("cod_cor").toString()
@@ -78,7 +76,6 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
 
                         for (doc in document){
                             modelo = doc.toObject(Modelo::class.java)
-                            Log.i("MOdelo Alteração", modelo.descricao)
 
                         }
 
@@ -86,11 +83,10 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
 
                         var dbMarca = FirebaseFirestore.getInstance().collection("marca_veiculo");
                         dbMarca.whereEqualTo("codmarca", modelo.cod_marca).get()
-                            .addOnSuccessListener { document ->
+                            .addOnSuccessListener { documentMarca ->
 
-                                for (doc in document){
+                                for (doc in documentMarca){
                                     marca = doc.toObject(Marca::class.java)
-                                    Log.i("Marca Alteração", marca.descricao)
                                }
 
                                 view?.demonstrarMarcaVeiculo(marca)
@@ -98,11 +94,10 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
 
                                 var dbCor = FirebaseFirestore.getInstance().collection("cor_veiculo");
                                 dbCor.whereEqualTo("cod_cor", veiculo.cod_cor).get()
-                                    .addOnSuccessListener { document ->
+                                    .addOnSuccessListener { documentCor ->
 
-                                        for (doc in document){
+                                        for (doc in documentCor){
                                             cor = doc.toObject(Cor::class.java)
-                                            Log.i("Cor Alteração", cor.descricao)
 
                                         }
 
@@ -110,11 +105,10 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
 
                                         var dbFilial = FirebaseFirestore.getInstance().collection("empresa");
                                         dbFilial.whereEqualTo("cnpj", veiculo.cnpj).get()
-                                            .addOnSuccessListener { document ->
+                                            .addOnSuccessListener { documentEmpresa ->
 
-                                                for (doc in document){
+                                                for (doc in documentEmpresa){
                                                     empresa = doc.toObject(Empresa::class.java)
-                                                    Log.i("Empresa Alteração", empresa.razao_social.toString())
 
                                                 }
 
@@ -162,7 +156,6 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
 
                 for (doc in document){
                     modelo = doc.toObject(Modelo::class.java)
-                    Log.i("MOdelo Alteração2", modelo.descricao)
 
                     veiculo.cod_modelo = modelo.cod_modelo
                     veiculo.cod_marca = modelo.cod_marca
@@ -170,24 +163,20 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
 
                         var dbCor = FirebaseFirestore.getInstance().collection("cor_veiculo");
                         dbCor.whereEqualTo("descricao", descrCor).get()
-                            .addOnSuccessListener { document ->
+                            .addOnSuccessListener { documentCor ->
 
-                                for (doc in document){
+                                for (doc in documentCor){
                                     cor = doc.toObject(Cor::class.java)
-                                    Log.i("Cor Alteração", cor.descricao)
 
                                     veiculo.cod_cor = cor.cod_cor
                                 }
 
                                 var dbEmpresa = FirebaseFirestore.getInstance().collection("empresa");
                                 dbEmpresa.whereEqualTo("razao_social", razaoSocial).get()
-                                    .addOnSuccessListener { document ->
+                                    .addOnSuccessListener { documentEmpresa ->
 
-                                        for (doc in document) {
+                                        for (doc in documentEmpresa) {
                                             empresa = doc.toObject(Empresa::class.java)
-                                            Log.i(
-                                                "Empresa Alterção", empresa.razao_social
-                                            )
 
                                             veiculo.cnpj = empresa.cnpj
                                         }
@@ -240,7 +229,6 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
 
                 for (doc in document){
                     modelo = doc.toObject(Modelo::class.java)
-                    Log.i("MOdelo Inclusao", modelo.descricao)
 
                     veiculo.cod_modelo = modelo.cod_modelo
 
@@ -248,32 +236,29 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
 
                 var dbMarca = FirebaseFirestore.getInstance().collection("marca_veiculo");
                 dbMarca.whereEqualTo("descricao", descrMarca).get()
-                    .addOnSuccessListener { document ->
+                    .addOnSuccessListener { documentMarca ->
 
-                        for (doc in document){
+                        for (doc in documentMarca){
                             marca = doc.toObject(Marca::class.java)
-                            Log.i("Marca Inclusao", marca.descricao)
                             veiculo.cod_marca = marca.codmarca
                         }
 
                         var dbCor = FirebaseFirestore.getInstance().collection("cor_veiculo");
                         dbCor.whereEqualTo("descricao", descrCor).get()
-                            .addOnSuccessListener { document ->
+                            .addOnSuccessListener { documentCor ->
 
-                                for (doc in document){
+                                for (doc in documentCor){
                                     cor = doc.toObject(Cor::class.java)
-                                    Log.i("Cor Inclusao", cor.descricao.toString())
                                     veiculo.cod_cor = cor.cod_cor
 
                                 }
 
                                 var dbFilial = FirebaseFirestore.getInstance().collection("empresa");
                                 dbFilial.whereEqualTo("razao_social", razaoSocial).get()
-                                    .addOnSuccessListener { document ->
+                                    .addOnSuccessListener { documentEmpresa ->
 
-                                        for (doc in document){
+                                        for (doc in documentEmpresa){
                                             empresa = doc.toObject(Empresa::class.java)
-                                            Log.i("Empresa Inclusao", empresa.razao_social.toString())
                                             veiculo.cnpj = empresa.cnpj
 
                                         }
@@ -282,9 +267,8 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
 
 
                                         db.add(veiculo)
-                                            .addOnSuccessListener { documentReference ->
+                                            .addOnSuccessListener { _ ->
                                                 view?.demonstrarMsgSucesso("Veiculo Cadastrado com sucesso!")
-                                                Log.i("cadastro veiculo", "documento gerado: ${documentReference.id}")
                                             }
 
                                     } //quarto
@@ -303,9 +287,8 @@ class VeiculoPresenter: VeiculoContrato.VeiculoPresenter {
             .addOnSuccessListener {
                 view?.demonstrarMsgSucesso("Exclusão Realizada com Sucesso!")
             }
-            .addOnFailureListener { e ->
+            .addOnFailureListener { _ ->
                 view?.demonstrarMsgErro("Erro na Exclusão do Veículo!")
-                Log.w("excluir veiculo", "Erro na exclusão", e)
             }
     }
 
